@@ -3,8 +3,8 @@ import struct
 import threading
 from queue import Queue
 from socket import socket
-from MessagePack import MessagePack, MsgType, get_bytes, Header
-from QueueMessage import QueueMessage
+from SocketServer.MessagePack import MessagePack, MsgType, get_bytes, Header
+from SocketServer.QueueMessage import QueueMessage
 
 
 class IncomingThread(threading.Thread):

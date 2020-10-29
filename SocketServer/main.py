@@ -5,9 +5,9 @@ from _thread import *
 from queue import Queue, Empty
 import time
 
-from MessageProcessorThread import MessageProcessorThread
-from NodeConnection import NodeConnection, NodeStatus
-from IncomingThread import IncomingThread
+from SocketServer.MessageProcessorThread import MessageProcessorThread
+from SocketServer.NodeConnection import NodeConnection, NodeStatus
+from SocketServer.IncomingThread import IncomingThread
 
 # setup our global variables
 if __name__ == '__main__':

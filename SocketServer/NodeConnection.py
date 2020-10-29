@@ -2,8 +2,8 @@ from enum import Enum
 from queue import Queue
 import socket
 
-from IncomingThread import IncomingThread
-from OutgoingThread import OutgoingThread
+from SocketServer.IncomingThread import IncomingThread
+from SocketServer.OutgoingThread import OutgoingThread
 
 
 # Enumeration for defining the current status of the node

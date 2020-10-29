@@ -2,7 +2,7 @@
 import threading
 from queue import Queue
 
-from QueueMessage import QueueMessage
+from SocketServer.QueueMessage import QueueMessage
 
 
 class MessageProcessorThread(threading.Thread):
