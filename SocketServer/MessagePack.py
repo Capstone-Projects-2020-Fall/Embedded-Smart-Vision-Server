@@ -1,7 +1,7 @@
 # Holds flags used to define message types inside of a packet
 from enum import Enum
 from socket import socket
-
+import SocketServer.MessageDataParser as mdp
 
 class MsgType(Enum):
     INVALID = -1
@@ -37,11 +37,22 @@ class MessagePack:
         self.header = Header(message_type=message_type, data_length=data_length)
 
         # This is the raw bytes for the message
-        self.raw_data = None
+        self.data = None
 
     def print_package(self):
         print("Length: ", self.header.data_length, "\n",
               "Message Type: ", self.header.messageType)
+
+
+# Builds a message packet from base data passed to it
+def build_from_bytes(message_type, data_length, raw_data):
+    msg_pack = MessagePack(message_type=message_type, data_length=data_length)
+
+    if message_type == MsgType.COMMAND:
+        # If we have a message type of command parse it into a command message
+        msg_pack.data = mdp.bytes_to_command(raw_data)
+
+    pass
 
 
 # Helper class to read and reconstruct bytes that may have been coalesced by the socket

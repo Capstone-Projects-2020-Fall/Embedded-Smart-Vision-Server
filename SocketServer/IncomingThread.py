@@ -3,7 +3,7 @@ import struct
 import threading
 from queue import Queue
 from socket import socket
-from SocketServer.MessagePack import MessagePack, MsgType, get_bytes, Header
+from SocketServer.MessagePack import MessagePack, MsgType, get_bytes, Header, build_from_bytes
 from SocketServer.QueueMessage import QueueMessage
 
 
@@ -48,13 +48,13 @@ class IncomingThread(threading.Thread):
 
             # Receive and decrypt 4 bytes to determine the message type
             data_length, msg_type = struct.unpack('ii', received_bytes)
+            # collect our raw data
+            raw_data = get_bytes(data_length, self.connection)
 
             # Create the proper message pack
-            msg_pck = MessagePack(message_type=MsgType(msg_type),
-                                  data_length=data_length)
+            msg_pck = build_from_bytes(MsgType(msg_type), data_length, raw_data)
 
-            msg_pck.raw_data = get_bytes(data_length, self.connection)
-
+            # Build a queue message to track the origins of the message
             queue_message = QueueMessage(node_origin=self.name,
                                          msg_package=msg_pck)
             self.inc_queue.put(queue_message)
