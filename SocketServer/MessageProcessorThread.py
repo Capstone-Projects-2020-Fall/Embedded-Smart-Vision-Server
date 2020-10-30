@@ -2,7 +2,20 @@
 import threading
 from queue import Queue
 
+from SocketServer.MessagePack import MessagePack, MsgType
+from SocketServer.MessageWrappers.CommandMessage import CommandMessage, CmdTypes
 from SocketServer.QueueMessage import QueueMessage
+
+
+def handle_stream_command(node_origin, cmd: CommandMessage):
+    print("Starting stream for node {node_name}".format(node_name=node_origin))
+
+
+def handle_command_message(node_origin, cmd: CommandMessage):
+    print("HANDLING COMMAND MESSAGE")
+    if cmd.command_type == CmdTypes.STREAM_COMMAND:
+        # Handle a stream command
+        handle_stream_command(node_origin, cmd)
 
 
 class MessageProcessorThread(threading.Thread):
@@ -17,4 +30,9 @@ class MessageProcessorThread(threading.Thread):
         print("Starting" + self.name)
         while self.running:
             msg: QueueMessage = self.message_queue.get()
-            msg.print_message_content()
+            print("New message from the queue!")
+
+            msg_pack: MessagePack = msg.msg_package
+
+            if msg_pack.header.messageType == MsgType.COMMAND:
+                handle_command_message(msg.node_origin, msg_pack.data)

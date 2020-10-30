@@ -1,6 +1,5 @@
 import struct
 
-from SocketServer.MessagePack import MsgType
 from SocketServer.MessageWrappers.CommandMessage import StreamCommand, CommandMessage, CmdTypes
 
 
