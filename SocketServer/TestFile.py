@@ -1,5 +1,6 @@
 import struct
 import SocketServer.MessageDataParser as mdp
+from SocketServer.MessagePack import MessagePack, MsgType, build_from_bytes
 from SocketServer.MessageWrappers.CommandMessage import StreamCommand, TestCommand
 
 
@@ -117,7 +118,36 @@ def test_encode_decode_stream_command():
               "test_encode_decode_stream_command")
 
 
-test_encode_decode_stream_command()
+# Test that we can properly encode and decode the message packs
+def test_encode_decode_message_pack():
+    msg_pack = MessagePack(message_type=MsgType.COMMAND)
+    str_cmd = StreamCommand(StreamCommand.START_STREAM)
+    msg_pack.set_data(str_cmd)
+    msg_pack.print_package()
+    msg_bytes = msg_pack.create_byte_array()
+    print(msg_bytes)
+    print("\n")
+
+    # Pretend to read the header like in the actual stream by stripping bytes
+    received_bytes, msg_bytes = mdp.strip_bytes(8, msg_bytes)
+    data_length, msg_type = struct.unpack('ii', received_bytes)
+
+    decoded_msg_pack = build_from_bytes(msg_type, data_length, msg_bytes)
+    decoded_msg_pack.print_package()
+    decoded_stream_package: StreamCommand = decoded_msg_pack.data
+    print("Decoded command type:", decoded_stream_package.command_type)
+    print("Decoded Stream mode:", decoded_stream_package.mode)
+
+def test_size_inherits_properly():
+    str_cmd = StreamCommand(StreamCommand.START_STREAM)
+    print(str_cmd.size)
+
+    tst_cmd = TestCommand()
+    print(tst_cmd.size)
+
+
+test_encode_decode_message_pack()
+# test_encode_decode_stream_command()
 # test_strip_bytes_bounding()
 # raw_data = struct.pack('iii', 1, 2, 3)
 # mdp.bytes_to_command(raw_data)

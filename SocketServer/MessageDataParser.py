@@ -1,5 +1,6 @@
 import struct
 
+from SocketServer.MessagePack import MsgType
 from SocketServer.MessageWrappers.CommandMessage import StreamCommand, CommandMessage, CmdTypes
 
 
@@ -51,4 +52,10 @@ def stream_command_to_bytes(str_cmd: StreamCommand):
 def command_to_bytes(cmd):
     if cmd.command_type == CmdTypes.STREAM_COMMAND:
         # We are making a stream so pass it over to the proper function
-        stream_command_to_bytes(cmd)
+        return stream_command_to_bytes(cmd)
+
+
+def message_to_bytes(data):
+    # If we are requesting to change a command message into bytes
+    if isinstance(data, CommandMessage):
+        return command_to_bytes(data)
