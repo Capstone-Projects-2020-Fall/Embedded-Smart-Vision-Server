@@ -23,8 +23,12 @@ def create_app():
     from application.Blueprints.HomePage.home_page import home_page
     from application.Blueprints.Dashboard.dashboard import dashboard
     from application.Blueprints.VideoGallery.video_gallery import video_gallery
+    from application.Bluprints.UserRegistrationAndLogin.user_registration_and_login import user_registration_and_login
+    from application.Blueprints.UserRegistrationAndLogin_MainPage.user_registration_and_login_main_page import user_registration_and_login_main_page
     app.register_blueprint(home_page)
     app.register_blueprint(dashboard)
     app.register_blueprint(video_gallery)
+    app.register_blueprint(user_registration_and_login)
+    app.register_blueprint(user_registration_and_login_main_page)
 
     return app
