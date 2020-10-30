@@ -1,8 +1,9 @@
 import struct
+
 import SocketServer.MessageDataParser as mdp
 from SocketServer.MessagePack import MessagePack, MsgType, build_from_bytes
 from SocketServer.MessageWrappers.CommandMessage import StreamCommand, TestCommand
-
+import os
 
 # Helper function inplace of unit testing functions
 def test_true(exp, act, message, func):
@@ -138,6 +139,7 @@ def test_encode_decode_message_pack():
     print("Decoded command type:", decoded_stream_package.command_type)
     print("Decoded Stream mode:", decoded_stream_package.mode)
 
+
 def test_size_inherits_properly():
     str_cmd = StreamCommand(StreamCommand.START_STREAM)
     print(str_cmd.size)
@@ -146,7 +148,11 @@ def test_size_inherits_properly():
     print(tst_cmd.size)
 
 
-test_encode_decode_message_pack()
+path = "./mypipe"
+mode = 0o600
+os.mkfifo(path, mode)
+
+# test_encode_decode_message_pack()
 # test_encode_decode_stream_command()
 # test_strip_bytes_bounding()
 # raw_data = struct.pack('iii', 1, 2, 3)

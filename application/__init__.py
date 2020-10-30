@@ -18,7 +18,6 @@ video_stream = VideoStream()
 def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-
     db.init_app(app)
 
     from application.Blueprints.HomePage.home_page import home_page

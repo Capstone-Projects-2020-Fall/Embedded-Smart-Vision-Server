@@ -11,7 +11,7 @@ class NodeStatus(Enum):
     # Currently establishing connection
     CONNECTING = 1
     # Currently active and functioning
-    ACTIVE = 2
+    CLIENT_NODE = 2
     # Currently shutting down the connection
     SHUTTING_DOWN = 3
 
@@ -20,16 +20,16 @@ class NodeStatus(Enum):
 # connection
 
 class NodeConnection:
-    def __init__(self, inc_messages):
+    def __init__(self, inc_messages=None):
         # Holds data that needs to be sent
         self.outgoing_queue: Queue = Queue()
         # Holds data the has come in
         self.incoming_queue = inc_messages
 
         # Holds the incoming threads PID
-        self.incoming_thread = -1
+        self.incoming_thread = None
         # Holds the outgoing threads PID
-        self.outgoing_thread = -1
+        self.outgoing_thread = None
 
         # Holds the status the node is currently in
         self.status = NodeStatus.CONNECTING
@@ -55,3 +55,4 @@ class NodeConnection:
                                                   self.connection)
             # Spin the thread up
             self.incoming_thread.start()
+
