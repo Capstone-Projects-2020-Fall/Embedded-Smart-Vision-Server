@@ -74,7 +74,7 @@ def build_from_bytes(message_type, data_length, raw_data):
     return msg_pack
 
 
-# Helper class to read and reconstruct bytes that may have been coalesced by the socket
+# Helper function to read and reconstruct bytes that may have been coalesced by the socket
 def get_bytes(cnt: int, conn: socket):
     buf_size = 4096
     remaining_bytes = cnt
