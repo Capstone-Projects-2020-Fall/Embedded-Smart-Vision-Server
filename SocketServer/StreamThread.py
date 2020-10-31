@@ -2,7 +2,6 @@
 # This class handles all the outgoing traffic and messages
 import struct
 import threading
-import cv2
 import pickle
 from SocketServer.MessagePack import get_bytes
 
@@ -24,12 +23,3 @@ class StreamThread(threading.Thread):
             raw_data = get_bytes(msg_size, self.connection)
 
             frame = pickle.loads(raw_data)
-            print(frame)
-            cv2.imshow('frame', frame)
-            if cv2.waitKey(5) & 0xFF == ord('q'):
-                break
-
-
-
-
-

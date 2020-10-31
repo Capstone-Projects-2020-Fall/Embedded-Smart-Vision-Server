@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Live Video Feed{% endblock %}
+
+{% block header %}
+  <h1>{{ node }}</h1>
+{% endblock %}
+
+{% block content %}
+  <img src="{{ url_for('dashboard.video_feed', node=node) }}">
+{% endblock %}

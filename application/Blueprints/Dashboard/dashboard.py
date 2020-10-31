@@ -1,15 +1,23 @@
 # home_page.py
 # import the necessary packages
 from flask import Blueprint, render_template, Response
-from ... import video_stream
+from ... import video_streams
 
 
-dashboard = Blueprint('dashboard', __name__, template_folder='templates')
+dashboard = Blueprint('dashboard', __name__,
+                      template_folder='templates',
+                      static_folder='dashboard_static')
 
 
 @dashboard.route('/dashboard')
-def show_live_video():
-    return render_template('dashboard.html', current_page='dashboard')
+def show_nodes():
+    nodes = video_streams.keys()
+    return render_template('dashboard.html', current_page='dashboard', nodes=nodes)
+
+
+@dashboard.route('/dashboard/liveFeed/<node>')
+def show_live_video(node):
+    return render_template('live_video.html', current_page='dashboard', node=node)
 
 
 def gen(stream):
@@ -19,8 +27,13 @@ def gen(stream):
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
-@dashboard.route('/videoFeed')
-def video_feed():
+@dashboard.route('/videoFeed/<node>')
+def video_feed(node):
+    print(node)
+    if node not in video_streams:
+        print("unknown node accessed")
+    print("Grabbing Video Stream")
+    video_stream = video_streams.get(node)
+    print("Got this video Stream", video_stream)
     return Response(gen(video_stream),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
-

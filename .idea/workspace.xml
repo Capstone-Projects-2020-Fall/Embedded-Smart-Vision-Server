@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e4f00231-0d7e-4718-8b55-ef6f79c3981d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/SocketMessage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestStream.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/Blueprints/Dashboard/dashboard_static/dashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/Blueprints/Dashboard/templates/live_video.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/SocketInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Embedded-Smart-Vision-Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Embedded-Smart-Vision-Server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SocketServer/StreamThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/SocketServer/StreamThread.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebDriver.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebDriver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/Blueprints/Dashboard/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/Blueprints/Dashboard/dashboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/Blueprints/Dashboard/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/Blueprints/Dashboard/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/templates/base.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1jWPfIvtS4ZjUtrDpNrtLisHSMJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jimmy\PycharmProjects\Embedded-Smart-Vision-Server" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="WebDriver" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Embedded-Smart-Vision-Server" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\jimmy\PycharmProjects\Embedded-Smart-Vision\windowsenv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WebDriver.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.WebDriver" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e4f00231-0d7e-4718-8b55-ef6f79c3981d" name="Default Changelist" comment="" />
+      <created>1603916984771</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603916984771</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604027514115">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1604027514115" />
+    <state x="401" y="143" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603942089214">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="401" y="143" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1603942089214" />
+    <state x="371" y="88" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604071126591">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="371" y="88" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.680@0.0.1280.680" timestamp="1604071126591" />
+    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1603919258855">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1603919258855" />
+    <state width="1259" height="163" key="GridCell.Tab.0.bottom" timestamp="1604105565355">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
+    <state width="1259" height="163" key="GridCell.Tab.0.center" timestamp="1604105565355">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
+    <state width="1259" height="163" key="GridCell.Tab.0.left" timestamp="1604105565355">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
+    <state width="1259" height="163" key="GridCell.Tab.0.right" timestamp="1604105565355">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
+    <state x="142" y="0" key="SettingsEditor" timestamp="1604103531715">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1604103531715" />
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1603935572504">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1603935572504" />
+  </component>
+</project>
