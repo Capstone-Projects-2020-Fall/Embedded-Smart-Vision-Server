@@ -11,20 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4f00231-0d7e-4718-8b55-ef6f79c3981d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SocketMessage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestStream.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/Blueprints/Dashboard/dashboard_static/dashboard.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/Blueprints/Dashboard/templates/live_video.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/SocketInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Embedded-Smart-Vision-Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Embedded-Smart-Vision-Server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SocketServer/StreamThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/SocketServer/StreamThread.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StartServer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SocketServer/OutgoingThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/SocketServer/OutgoingThread.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SocketServer/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/SocketServer/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebDriver.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebDriver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/Blueprints/Dashboard/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/Blueprints/Dashboard/dashboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/Blueprints/Dashboard/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/Blueprints/Dashboard/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,14 +25,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="6bc0168c-0ffe-4922-a769-881605dbdb86" />
   <component name="ProjectId" id="1jWPfIvtS4ZjUtrDpNrtLisHSMJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -51,6 +43,8 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -59,19 +53,20 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="WebDriver" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="StartServer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Embedded-Smart-Vision-Server" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\jimmy\PycharmProjects\Embedded-Smart-Vision\windowsenv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WebDriver.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/StartServer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -82,7 +77,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.WebDriver" />
+        <item itemvalue="Python.StartServer" />
       </list>
     </recent_temporary>
   </component>
@@ -110,10 +105,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604027514115">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="144" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604722191636">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1604027514115" />
+    <state x="144" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604722191636" />
     <state x="401" y="143" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603942089214">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -126,22 +122,26 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1603919258855" />
-    <state width="1259" height="163" key="GridCell.Tab.0.bottom" timestamp="1604105565355">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1327" height="232" key="GridCell.Tab.0.bottom" timestamp="1604722484167">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1259" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
-    <state width="1259" height="163" key="GridCell.Tab.0.center" timestamp="1604105565355">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1327" height="232" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604722484167" />
+    <state width="1327" height="232" key="GridCell.Tab.0.center" timestamp="1604722484166">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1259" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
-    <state width="1259" height="163" key="GridCell.Tab.0.left" timestamp="1604105565355">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1327" height="232" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604722484166" />
+    <state width="1327" height="232" key="GridCell.Tab.0.left" timestamp="1604722484166">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1259" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
-    <state width="1259" height="163" key="GridCell.Tab.0.right" timestamp="1604105565355">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1327" height="232" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604722484166" />
+    <state width="1327" height="232" key="GridCell.Tab.0.right" timestamp="1604722484166">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1259" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
+    <state width="1327" height="232" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604722484166" />
     <state x="142" y="0" key="SettingsEditor" timestamp="1604103531715">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -150,5 +150,20 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1603935572504" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/WebDriver.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Embedded_Smart_Vision_Server$TestFile.coverage" NAME="TestFile Coverage Results" MODIFIED="1604026809368" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SocketServer" />
+    <SUITE FILE_PATH="coverage/Embedded_Smart_Vision_Server$StartServer.coverage" NAME="StartServer Coverage Results" MODIFIED="1604722484159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Embedded_Smart_Vision_Server$main.coverage" NAME="main Coverage Results" MODIFIED="1604028934657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SocketServer" />
   </component>
 </project>

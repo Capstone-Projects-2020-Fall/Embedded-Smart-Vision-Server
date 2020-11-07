@@ -37,7 +37,6 @@ if __name__ == '__main__':
 # This thread will broker the connection and exchange details
 # Returns a NodeConnection containing all the information
 def hand_shake(connection: socket.socket):
-
     # Send the packed up length of the servers name to the client
     connection.send(
         struct.pack(
@@ -114,7 +113,7 @@ def start_listening_server():
                 client_socket, address = s.accept()
 
                 # Start a new handshake thread so we can set that up while we wait for another connection
-                start_new_thread(hand_shake, (client_socket, ))
+                start_new_thread(hand_shake, (client_socket,))
 
             except socket.timeout:
                 continue
@@ -123,3 +122,7 @@ def start_listening_server():
 
 if __name__ == '__main__':
     start_listening_server()
+
+
+def start_socket_server(app_conn):
+    print("Starting socket server!")
