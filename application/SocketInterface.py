@@ -44,7 +44,23 @@ class ListeningThread(threading.Thread):
 
 
 class SocketInterface:
+    _instance = None
+
+    @staticmethod
+    def getInstance():
+        if SocketInterface._instance is None:
+            SocketInterface()
+        return SocketInterface._instance
+
     def __init__(self, connection: Connection):
+        if SocketInterface._instance != None:
+            raise Exception("This class is a singleton!")
+        else:
+            SocketInterface._instance = self
+
+        # Holds the information about connected nodes
+        self.connected_nodes = None
+        
         self.listening_thread = ListeningThread(connection)
         print("Starting listening thread")
         self.listening_thread.start()

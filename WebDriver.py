@@ -5,6 +5,7 @@ from application.SocketInterface import SocketInterface
 from PIL import Image
 
 
-def start_webapp():
+def start_webapp(socket_connection):
     app = create_app()
+    socket_interface = SocketInterface(socket_connection)
     app.run()
