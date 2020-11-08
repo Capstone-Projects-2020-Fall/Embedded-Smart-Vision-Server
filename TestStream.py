@@ -1,6 +1,6 @@
 import cv2 as cv
 from multiprocessing.connection import Connection
-from SocketMessage import SocketMessage, SocketMessageType, create_new_node_message, create_frame_message
+#from SocketMessage import SocketMessage, SocketMessageType, create_new_node_message, create_frame_message
 import threading
 
 

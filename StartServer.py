@@ -9,10 +9,13 @@ if __name__ == '__main__':
     web_app_conn, socket_server_conn = Pipe(duplex=True)
 
     # Create the socket server process
-    socket_server = SocketServer()
-    socket_server_proc = Process(target=start_socket_server,
-                                 daemon=True, name="Socket_Server",
-                                 args=(socket_server,))
-    socket_server_proc.run()
 
-    start_webapp(web_app_conn)
+    socket_server_proc = Process(target=start_socket_server,
+                                 name="Socket_Server",
+                                 args=(web_app_conn, ))
+
+    print('hello')
+    socket_server_proc.start()
+    print('hello')
+
+    start_webapp(socket_server_conn)

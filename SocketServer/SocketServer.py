@@ -6,6 +6,7 @@ from threading import RLock
 from queue import Queue, Empty
 import time
 
+from NodeInformation import NodeInformation
 from SocketServer.MessageProcessorThread import MessageProcessorThread
 from SocketServer.NodeConnection import NodeConnection, NodeStatus
 from SocketServer.IncomingThread import IncomingThread
@@ -13,11 +14,12 @@ from SocketServer.IncomingThread import IncomingThread
 # setup our global variables
 from SocketServer.StreamThread import StreamThread
 from SocketServer.StreamingNode import StreamingNode
+from SocketServer.WebAppInterface import WebAppInterface
 
 
 class SocketServer:
 
-    def __init__(self):
+    def __init__(self, web_app_pipe):
         # Counts our active connections
         self.active_connections = 0
         # The name of the central server
@@ -35,6 +37,10 @@ class SocketServer:
         # A dictionary used to store all of the connections for streaming
         self.str_dict_lock = RLock()
         self.stream_list = {}
+
+        # Create the web app interface
+        self.web_interface: WebAppInterface = WebAppInterface.getInstance()
+        self.web_interface.set_web_pipe(web_app_pipe)
 
     # This thread will broker the connection and exchange details
     # Returns a NodeConnection containing all the information
@@ -79,6 +85,10 @@ class SocketServer:
             with self.nc_dict_lock:
                 self.node_list[node_connection.name] = node_connection
             node_connection.status = NodeStatus.CLIENT_NODE
+            node_info = NodeInformation()
+            print("Sending to web app interface")
+            self.web_interface.add_new_node(node_info)
+
         elif conn_mode == 1:
             # This is a stream connection so configure it as such
             str_node = StreamingNode()
@@ -121,6 +131,11 @@ class SocketServer:
                 print("\nConnection established\n\n")
 
 
-def start_socket_server(socket_server):
+def start_socket_server(web_app_con):
     # We are now in a new process with a handle to the socket server
-    pass
+
+    print("Starting socket server")
+    socket_server = SocketServer(web_app_con)
+    socket_server.start_listening_server()
+
+

@@ -18,11 +18,12 @@ class SocketMessage:
         self.message_type = message_type
         self.data = data
 
+    @staticmethod
+    def add_node_message(node):
+        socket_message = SocketMessage(message_type=SocketMessageType.NEW_NODE,
+                                       data=node)
+        return socket_message
 
-def create_new_node_message(node) -> SocketMessage:
-    socket_message = SocketMessage(message_type=SocketMessageType.NEW_NODE,
-                                   data=node)
-    return socket_message
 
 
 # Called to create a message that will send a frame from a node

@@ -10,6 +10,7 @@ class ListeningThread(threading.Thread):
         threading.Thread.__init__(self)
         self.conn: Connection = connection
         self.running = False
+        self.socket_interface = SocketInterface.getInstance()
 
     def run(self) -> None:
         self.running = True
@@ -32,6 +33,7 @@ class ListeningThread(threading.Thread):
                     print("Unknown Message Recieved!")
 
     def add_node(self, data):
+        print("Socket_Interface: Adding node!")
         video_streams[data] = VideoStream()
 
     def update_frame(self, data):
@@ -60,9 +62,19 @@ class SocketInterface:
 
         # Holds the information about connected nodes
         self.connected_nodes = None
-        
+
         self.listening_thread = ListeningThread(connection)
         print("Starting listening thread")
         self.listening_thread.start()
         print("Started listening thread")
         self.socket_server_conn: Connection = connection
+
+    def add_node(self):
+        pass
+
+    def remove_node(self):
+        pass
+
+    # Returns the stored list of connected nodes
+    def get_node_list(self):
+        pass
