@@ -1,4 +1,6 @@
 from multiprocessing import Process, Pipe
+
+from DebuggerHost.DebuggerHost import DebuggerHost
 from SocketServer.SocketServer import start_socket_server, SocketServer
 from multiprocessing import Pipe
 from WebDriver import start_webapp
@@ -19,3 +21,4 @@ if __name__ == '__main__':
     print('hello')
 
     start_webapp(socket_server_conn)
+

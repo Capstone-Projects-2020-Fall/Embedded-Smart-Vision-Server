@@ -1,5 +1,7 @@
 from multiprocessing.connection import Connection
 import threading
+
+from NodeInformation import NodeInformation
 from SocketMessage import SocketMessage, SocketMessageType
 from . import video_streams
 from application.VideoStream.VideoFeed import VideoStream
@@ -10,7 +12,7 @@ class ListeningThread(threading.Thread):
         threading.Thread.__init__(self)
         self.conn: Connection = connection
         self.running = False
-        self.socket_interface = SocketInterface.getInstance()
+        self.socket_interface: SocketInterface = SocketInterface.getInstance()
 
     def run(self) -> None:
         self.running = True
@@ -32,9 +34,10 @@ class ListeningThread(threading.Thread):
                 else:
                     print("Unknown Message Recieved!")
 
-    def add_node(self, data):
+    def add_node(self, node_info):
         print("Socket_Interface: Adding node!")
-        video_streams[data] = VideoStream()
+        video_streams[node_info] = VideoStream()
+        self.socket_interface.add_node(node_info)
 
     def update_frame(self, data):
         frame, node = data
@@ -48,20 +51,22 @@ class ListeningThread(threading.Thread):
 class SocketInterface:
     _instance = None
 
+    # Get the instance of the singleton, if a connection value isn't passed then we are getting
+    # an already instantiated instance so we don't need to run the init
     @staticmethod
-    def getInstance():
+    def getInstance(connection=None):
         if SocketInterface._instance is None:
-            SocketInterface()
+            SocketInterface(connection)
         return SocketInterface._instance
 
-    def __init__(self, connection: Connection):
+    def __init__(self, connection: Connection = None):
         if SocketInterface._instance != None:
             raise Exception("This class is a singleton!")
         else:
             SocketInterface._instance = self
 
         # Holds the information about connected nodes
-        self.connected_nodes = None
+        self.connected_nodes = {}
 
         self.listening_thread = ListeningThread(connection)
         print("Starting listening thread")
@@ -69,7 +74,13 @@ class SocketInterface:
         print("Started listening thread")
         self.socket_server_conn: Connection = connection
 
-    def add_node(self):
+    def add_stream(self):
+        pass
+
+    # Add a node to our information list
+    def add_node(self, node_info: NodeInformation):
+        print("Socket interface: Adding nodes")
+        self.connected_nodes[node_info.node_name] = node_info
         pass
 
     def remove_node(self):
@@ -77,4 +88,4 @@ class SocketInterface:
 
     # Returns the stored list of connected nodes
     def get_node_list(self):
-        pass
+        return self.connected_nodes

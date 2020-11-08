@@ -6,6 +6,7 @@ from threading import RLock
 from queue import Queue, Empty
 import time
 
+from DebuggerHost.DebuggerHost import DebuggerHost
 from NodeInformation import NodeInformation
 from SocketServer.MessageProcessorThread import MessageProcessorThread
 from SocketServer.NodeConnection import NodeConnection, NodeStatus
@@ -133,9 +134,12 @@ class SocketServer:
 
 def start_socket_server(web_app_con):
     # We are now in a new process with a handle to the socket server
+    print("Starting debugger server thread")
 
     print("Starting socket server")
     socket_server = SocketServer(web_app_con)
+    debugger = DebuggerHost(socket_server)
+    debugger.start()
     socket_server.start_listening_server()
 
 

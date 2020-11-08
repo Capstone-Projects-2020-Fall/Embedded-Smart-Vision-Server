@@ -4,6 +4,8 @@ from NodeInformation import NodeInformation
 from SocketMessage import SocketMessage
 
 
+# This class is a singleton method that allows for a simple interface for interacting with and talking to the web
+# portal
 class WebAppInterface:
     _instance = None
 

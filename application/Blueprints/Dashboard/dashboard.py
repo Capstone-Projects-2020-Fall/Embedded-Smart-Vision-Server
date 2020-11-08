@@ -2,7 +2,7 @@
 # import the necessary packages
 from flask import Blueprint, render_template, Response
 from ... import video_streams
-
+from ...SocketInterface import SocketInterface
 
 dashboard = Blueprint('dashboard', __name__,
                       template_folder='templates',
@@ -11,7 +11,9 @@ dashboard = Blueprint('dashboard', __name__,
 
 @dashboard.route('/dashboard')
 def show_nodes():
-    nodes = video_streams.keys()
+    sock_interface: SocketInterface = SocketInterface.getInstance()
+    nodes = sock_interface.get_node_list()
+    print("Showing nodes!", nodes)
     return render_template('dashboard.html', current_page='dashboard', nodes=nodes)
 
 
@@ -29,7 +31,7 @@ def gen(stream):
 
 @dashboard.route('/videoFeed/<node>')
 def video_feed(node):
-    print(node)
+    print("Showing node: ", node)
     if node not in video_streams:
         print("unknown node accessed")
     print("Grabbing Video Stream")
