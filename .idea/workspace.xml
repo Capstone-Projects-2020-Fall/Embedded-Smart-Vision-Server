@@ -12,7 +12,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e4f00231-0d7e-4718-8b55-ef6f79c3981d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SocketServer/IncomingThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/SocketServer/IncomingThread.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SocketServer/StreamThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/SocketServer/StreamThread.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/VideoThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/VideoThread.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +105,8 @@
       <option name="presentableId" value="Default" />
       <updated>1603916984771</updated>
       <workItem from="1604724099832" duration="7240000" />
-      <workItem from="1604867094413" duration="32038000" />
+      <workItem from="1604867094413" duration="32150000" />
+      <workItem from="1604937769319" duration="2008000" />
     </task>
     <servers />
   </component>
@@ -145,30 +147,30 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1603919258855" />
-    <state width="914" height="284" key="GridCell.Tab.0.bottom" timestamp="1604908154754">
+    <state width="1877" height="286" key="GridCell.Tab.0.bottom" timestamp="1604939780207">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1259" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
     <state width="1877" height="284" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604907602160" />
-    <state width="914" height="284" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604908154754" />
-    <state width="914" height="284" key="GridCell.Tab.0.center" timestamp="1604908154754">
+    <state width="1877" height="286" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604939780207" />
+    <state width="1877" height="286" key="GridCell.Tab.0.center" timestamp="1604939780207">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1259" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
     <state width="1877" height="284" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604907602160" />
-    <state width="914" height="284" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604908154754" />
-    <state width="914" height="284" key="GridCell.Tab.0.left" timestamp="1604908154754">
+    <state width="1877" height="286" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604939780207" />
+    <state width="1877" height="286" key="GridCell.Tab.0.left" timestamp="1604939780207">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1259" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
     <state width="1877" height="284" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604907602160" />
-    <state width="914" height="284" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604908154754" />
-    <state width="914" height="284" key="GridCell.Tab.0.right" timestamp="1604908154754">
+    <state width="1877" height="286" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604939780207" />
+    <state width="1877" height="286" key="GridCell.Tab.0.right" timestamp="1604939780207">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1259" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1604105565355" />
     <state width="1877" height="284" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604907602160" />
-    <state width="914" height="284" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604908154754" />
+    <state width="1877" height="286" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604939780207" />
     <state x="213" y="0" key="SettingsEditor" timestamp="1604871308857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -197,7 +199,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Embedded_Smart_Vision_Server$TestFile.coverage" NAME="TestFile Coverage Results" MODIFIED="1604026809368" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SocketServer" />
-    <SUITE FILE_PATH="coverage/Embedded_Smart_Vision_Server$StartServer.coverage" NAME="StartServer Coverage Results" MODIFIED="1604908154750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Embedded_Smart_Vision_Server$StartServer.coverage" NAME="StartServer Coverage Results" MODIFIED="1604939487795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Embedded_Smart_Vision_Server$main.coverage" NAME="main Coverage Results" MODIFIED="1604028934657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SocketServer" />
   </component>
 </project>

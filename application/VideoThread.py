@@ -26,4 +26,14 @@ class VideoThread(threading.Thread):
         while self.running:
             # This thread loops around receiving data from the socket server and pushing it to the video stream
             frame = self.lf_pipe.recv()
-            self.v_feed.update_frame(frame)
+
+            ret, frame_encode = cv2.imencode('.jpg', frame)
+
+            if ret is True:
+                frame_encode = frame_encode.tobytes()
+                self.v_feed.update_frame(frame_encode)
+
+            cv2.imshow('Frame', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
