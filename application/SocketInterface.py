@@ -85,6 +85,7 @@ class SocketInterface:
             # Store the pipe
             self.connected_nodes[node_name].stream_connection = stream_pipe
             video_streams[node_name] = VideoStream()
+            print(video_streams[node_name])
             self.connected_nodes[node_name].video_camera = video_streams[node_name]
             self.connected_nodes[node_name].video_thread = VideoThread(name=node_name,
                                                                        lf_pipe=stream_pipe,

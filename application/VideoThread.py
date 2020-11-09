@@ -24,5 +24,6 @@ class VideoThread(threading.Thread):
         print("Starting" + self.name + " Which is a video thread")
         self.running = True
         while self.running:
+            # This thread loops around receiving data from the socket server and pushing it to the video stream
             frame = self.lf_pipe.recv()
             self.v_feed.update_frame(frame)

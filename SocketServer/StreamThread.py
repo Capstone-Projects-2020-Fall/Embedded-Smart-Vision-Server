@@ -22,14 +22,14 @@ class StreamThread(threading.Thread):
         print("Starting " + self.name + " which is a StreamThread")
         self.running = True
         while self.running:
+            # This is the loop that receives frames from the client and passes them to be shown by the webportal
             size_bytes = self.connection.recv(4)
             msg_size = struct.unpack('I', size_bytes)[0]
-            raw_data = get_bytes(msg_size, self.connection)
+            frame_data = get_bytes(msg_size, self.connection)
             # Unpickle the raw data we received
-            frame = pickle.loads(raw_data)
             # Send it down the web pipe after verifying our pipe is set
             if self.web_pipe is not None:
-                self.web_pipe.send(frame)
+                self.web_pipe.send(frame_data)
         self.break_down()
 
     def set_web_pipe(self, web_pipe):
