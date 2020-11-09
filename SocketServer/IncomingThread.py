@@ -1,8 +1,13 @@
 # This class handles all the incoming traffic and messages
+import pickle
 import struct
 import threading
 from queue import Queue
 from socket import socket
+
+import cv2
+import numpy as np
+
 from SocketServer.MessagePack import MessagePack, MsgType, get_bytes, Header, build_from_bytes
 from SocketServer.QueueMessage import QueueMessage
 
@@ -29,37 +34,52 @@ class IncomingThread(threading.Thread):
         print("Starting: " + self.name)
         self.running = True
         while self.running:
-            self.running = False
-            # Create a variable to hold the message we unpack
-            msg_pck = None
+            # Receive the message type
+            received_bytes = get_bytes(4, self.connection)
+            if len(received_bytes) == 0:
+                raise Exception("The other end must have closed")
+            # Identify the message type
 
-            # Receive the header bytes
-            received_bytes = get_bytes(Header.HEADER_SIZE, self.connection)
-
-            # Check to make sure we haven't received 0 bytes which would indicate the
-            # other side has closed down it's socket
-            if len(received_bytes) == 4:
-                print('Received improper amount of bytes count: ', len(received_bytes))
-                self.running = False
-                continue
-            elif len(received_bytes) < 8:
-                print('Received in incorrect amount of bytes, this may become an issue but not now')
-                continue
-
-            # Receive and decrypt 4 bytes to determine the message type
-            data_length, msg_type = struct.unpack('ii', received_bytes)
-            # collect our raw data
-            raw_data = get_bytes(data_length, self.connection)
-
-            # Create the proper message pack
-            msg_pck = build_from_bytes(MsgType(msg_type), data_length, raw_data)
-
-            # Build a queue message to track the origins of the message
-            queue_message = QueueMessage(node_origin=self.name,
-                                         msg_package=msg_pck)
-            self.inc_queue.put(queue_message)
+            msg_type = struct.unpack('i', received_bytes)[0]
+            print(msg_type)
+            if msg_type == 1:
+                print("Handling as test message")
+                self.handle_test_message()
+            elif msg_type == 2:
+                print("Handling as video send")
+                self.handle_video_send()
+            else:
+                print("Message type was not recognized")
 
         self.break_down()
+
+    def handle_test_message(self):
+        # Receive the next four bytes
+        received_bytes = get_bytes(4, self.connection)
+        # Calculate the length of bytes in the message
+        msg_len = struct.unpack('i', received_bytes)[0]
+        received_bytes = get_bytes(msg_len, self.connection)
+        text = received_bytes.decode('utf-8')
+        print("Test command:", text)
+
+    def handle_video_send(self):
+        path = "testvid.mp4"
+        received_bytes = get_bytes(8, self.connection)
+        frame_width, frame_height = struct.unpack('ii', received_bytes)
+        out = cv2.VideoWriter(path, cv2.VideoWriter_fourcc('a', 'v', 'c', '1'), 10, (frame_width, frame_height))
+        while True:
+            # Receive the next four bytes
+            received_bytes = get_bytes(4, self.connection)
+            # Calculate the length of bytes in the message
+            msg_len = struct.unpack('i', received_bytes)[0]
+            # When we are done sending the video we can just send a negative value to finish the transaction
+            if msg_len <= 0:
+                break
+            received_bytes = get_bytes(msg_len, self.connection)
+            img = pickle.loads(received_bytes)
+            out.write(img)
+        print("Done receiving video")
+        out.release()
 
     def set_running(self, option: bool):
         self.running = option
