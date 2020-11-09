@@ -5,8 +5,10 @@ import socket
 from SocketServer.IncomingThread import IncomingThread
 from SocketServer.OutgoingThread import OutgoingThread
 
-
 # Enumeration for defining the current status of the node
+from SocketServer.StreamThread import StreamThread
+
+
 class NodeStatus(Enum):
     # Currently establishing connection
     CONNECTING = 1
@@ -40,6 +42,9 @@ class NodeConnection:
         # The socket connection for this node
         self.connection = None
 
+        # Holds a reference to the associated stream node if it is connected
+        self.stream_node = None
+
     # Starts the communication threads after spawning them
     def start_communication_threads(self):
         # Run a real quick check to make sure we have the socket setup
@@ -56,3 +61,13 @@ class NodeConnection:
             # Spin the thread up
             self.incoming_thread.start()
 
+    def set_stream_node(self, stream: StreamThread):
+        if self.stream_node is None:
+            # Check if the stream node is set or not before replacing it
+            self.stream_node = stream
+        elif self.stream_node.running:
+            # If we have a running stream node raise an exception
+            raise Exception("ERROR: set_stream_node on a node that already has a stream node connected")
+        else:
+            # Else if we have a hanging stream node we can just replace it as long as it isn't running
+            self.stream_node = stream

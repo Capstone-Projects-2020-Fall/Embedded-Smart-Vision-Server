@@ -17,7 +17,6 @@ class DebuggerHost(threading.Thread):
         self.socket_server= socket_server
 
     def run(self):
-        print("Starting debugger thread")
         self.running = True
         # Setup socket
         sock = socket(AF_INET, SOCK_STREAM)

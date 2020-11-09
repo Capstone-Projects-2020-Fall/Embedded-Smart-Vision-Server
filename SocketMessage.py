@@ -10,6 +10,8 @@ class SocketMessageType(Enum):
     FRAME = 2
     # Node wants to upload to database
     UPLOAD = 3
+    # A new stream is trying to connect
+    NEW_STREAM = 4
 
 
 # Used to store message type and data of message
@@ -24,6 +26,13 @@ class SocketMessage:
                                        data=node)
         return socket_message
 
+    # Message detailing adding a stream connection to the server
+    @staticmethod
+    def add_stream_message(node_name, stream_pipe):
+        msg = SocketMessage(message_type=SocketMessageType.NEW_STREAM,
+                            data={'node_name': node_name,
+                                  'stream_pipe': stream_pipe})
+        return msg
 
 
 # Called to create a message that will send a frame from a node

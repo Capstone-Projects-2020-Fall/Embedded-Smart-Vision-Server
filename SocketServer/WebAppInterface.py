@@ -1,4 +1,4 @@
-from multiprocessing.connection import Connection
+from multiprocessing.connection import Connection, Pipe
 
 from NodeInformation import NodeInformation
 from SocketMessage import SocketMessage
@@ -28,9 +28,8 @@ class WebAppInterface:
     def set_web_pipe(self, web_app_pipe):
         self.web_app_pipe = web_app_pipe
 
-    # Take in a new node a set it's name
+    # Take in a new node and set it's name
     def add_new_node(self, node_info: NodeInformation):
-        print("Web app interface: Adding new node")
         self.connected_nodes[node_info] = node_info
         msg = SocketMessage.add_node_message(node_info)
         self.web_app_pipe.send(msg)
@@ -38,8 +37,13 @@ class WebAppInterface:
     def remove_node(self):
         pass
 
-    def setup_stream(self):
-        pass
+    def setup_stream(self, node_name, stream_thread):
+        print("WebAppInterface is calling setup stream")
+        # Create new pipe to link up the stream thread
+        h, c = Pipe(duplex=True)
+        msg = SocketMessage.add_stream_message(node_name, c)
+        stream_thread.set_web_pipe(h)
+        self.web_app_pipe.send(msg)
 
     def disconnect_stream(self):
         pass

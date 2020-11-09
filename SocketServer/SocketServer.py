@@ -69,7 +69,6 @@ class SocketServer:
 
         # Read the requested connection mode
         conn_mode = struct.unpack('i', connection.recv(4))[0]
-        print("connection mode:", conn_mode)
 
         if conn_mode == 0:
             # Create the new node_connection object
@@ -86,19 +85,22 @@ class SocketServer:
             with self.nc_dict_lock:
                 self.node_list[node_connection.name] = node_connection
             node_connection.status = NodeStatus.CLIENT_NODE
-            node_info = NodeInformation()
-            print("Sending to web app interface")
+            node_info = NodeInformation(node_name=node_name)
             self.web_interface.add_new_node(node_info)
 
         elif conn_mode == 1:
             # This is a stream connection so configure it as such
-            str_node = StreamingNode()
-            str_node.name = node_name
-            str_node.stream_thread = StreamThread(node_name, connection)
-            str_node.stream_thread.start()
-            with self.str_dict_lock:
-                self.stream_list[node_name] = str_node
-            print("Starting socket in stream mode")
+            str_thread = StreamThread(node_name, connection)
+            str_thread.start()
+
+            with self.nc_dict_lock:
+                if node_name in self.node_list:
+                    # If the node exists in our node list add it to that stream node
+                    self.node_list[node_name].set_stream_node(str_thread)
+                else:
+                    print("Failed to find an active connection for this stream, closing it")
+                    str_thread.running = False
+            self.web_interface.setup_stream(node_name, str_thread)
 
     # Start a server that listens for new nodes attempting to connect
     def start_listening_server(self):
@@ -141,5 +143,3 @@ def start_socket_server(web_app_con):
     debugger = DebuggerHost(socket_server)
     debugger.start()
     socket_server.start_listening_server()
-
-

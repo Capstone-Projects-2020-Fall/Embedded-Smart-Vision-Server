@@ -19,6 +19,7 @@ def show_nodes():
 
 @dashboard.route('/dashboard/liveFeed/<node>')
 def show_live_video(node):
+    print("Show_Live_Video: ", node)
     return render_template('live_video.html', current_page='dashboard', node=node)
 
 

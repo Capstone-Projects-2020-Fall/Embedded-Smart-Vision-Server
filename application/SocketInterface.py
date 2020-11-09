@@ -5,6 +5,7 @@ from NodeInformation import NodeInformation
 from SocketMessage import SocketMessage, SocketMessageType
 from . import video_streams
 from application.VideoStream.VideoFeed import VideoStream
+from .VideoThread import VideoThread
 
 
 class ListeningThread(threading.Thread):
@@ -29,14 +30,17 @@ class ListeningThread(threading.Thread):
                         self.update_frame(message.data)
                     elif message.message_type == SocketMessageType.UPLOAD:
                         pass
+                    elif message.message_type == SocketMessageType.NEW_STREAM:
+                        # We have received a new stream to setup
+                        node_name = message.data['node_name']
+                        stream_pipe = message.data['stream_pipe']
+                        self.socket_interface.add_stream(node_name, stream_pipe)
                     else:
                         print("Invalid Socket Message Sent")
                 else:
                     print("Unknown Message Recieved!")
 
     def add_node(self, node_info):
-        print("Socket_Interface: Adding node!")
-        video_streams[node_info] = VideoStream()
         self.socket_interface.add_node(node_info)
 
     def update_frame(self, data):
@@ -60,7 +64,7 @@ class SocketInterface:
         return SocketInterface._instance
 
     def __init__(self, connection: Connection = None):
-        if SocketInterface._instance != None:
+        if SocketInterface._instance is not None:
             raise Exception("This class is a singleton!")
         else:
             SocketInterface._instance = self
@@ -69,19 +73,30 @@ class SocketInterface:
         self.connected_nodes = {}
 
         self.listening_thread = ListeningThread(connection)
-        print("Starting listening thread")
         self.listening_thread.start()
-        print("Started listening thread")
         self.socket_server_conn: Connection = connection
 
-    def add_stream(self):
-        pass
+    # Add the stream to our version of the node_information
+    def add_stream(self, node_name, stream_pipe):
+        print("SocketInterface: add_stream called")
+        print("SocketInterface: Add_Stream", node_name)
+        print("SocketInterface: Add_Stream", self.connected_nodes)
+        if node_name in self.connected_nodes:
+            # Store the pipe
+            self.connected_nodes[node_name].stream_connection = stream_pipe
+            video_streams[node_name] = VideoStream()
+            self.connected_nodes[node_name].video_camera = video_streams[node_name]
+            self.connected_nodes[node_name].video_thread = VideoThread(name=node_name,
+                                                                       lf_pipe=stream_pipe,
+                                                                       v_feed=video_streams[node_name])
+            self.connected_nodes[node_name].video_thread.start()
+            print("Add stream result: " + self.connected_nodes[node_name].to_string())
+        else:
+            print("Failed to find an active connection for this stream, closing it")
 
     # Add a node to our information list
     def add_node(self, node_info: NodeInformation):
-        print("Socket interface: Adding nodes")
         self.connected_nodes[node_info.node_name] = node_info
-        pass
 
     def remove_node(self):
         pass
