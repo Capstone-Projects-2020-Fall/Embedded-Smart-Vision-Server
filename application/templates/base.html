@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='navigation.css') }}">
+  {% block style %}{% endblock %}
+<section class="content">
+  <section id="navigation" class="navigation">
+      <ul>
+        {% if not current_user.is_authenticated %}
+        <li><a href="{{ url_for('home_page.show_home_page') }}" id="home">Home</a></li>
+        <li><a href="{{ url_for('user_login.show_user_login') }}" id="user-login">User Login</a></li>
+        <li><a href="{{ url_for('user_signup.show_user_signup') }}" id="user-signup">User Signup</a></li>
+        {% endif %}
+        
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('dashboard.show_live_video') }}" id="dashboard">Dashboard</a></li>
+        <li><a href="{{ url_for('video_gallery.show_all_videos') }}" id="videos">Videos</a></li>
+        <li><a href="{{ url_for('user_profile.show_user_profile') }}" id="user_profile">User Profile</a></li>\
+        <li><a href="{{ url_for('user_login.show_user_login') }}" id="user_logout">User Logout</a></li>
+        {% endif %}
+      </ul>
+    <script>
+      var current_page = '{{ current_page }}';
+      document.getElementById(current_page).className = "active";
+    </script>
+  </section><section class="page">
+    <header class="PageHeader">
+      {% block header %}{% endblock %}
+    </header>
+      {% block content %}{% endblock %}
+  </section>
+</section>
+</html>
