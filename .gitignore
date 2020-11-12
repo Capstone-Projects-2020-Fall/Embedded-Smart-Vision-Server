@@ -3,3 +3,6 @@
 /workspace.xml
 windowsenv/
 venv/
+testvid.mp4
+
+*.pyc
