@@ -16,3 +16,9 @@ testvid.mp4
 .idea/workspace.xml
 .idea/misc.xml
 .idea/Embedded-Smart-Vision-Server.iml
+*.pyc
+.idea/Embedded-Smart-Vision-Server.iml
+.idea/misc.xml
+.idea/workspace.xml
+*.mp4
+*.cnt
