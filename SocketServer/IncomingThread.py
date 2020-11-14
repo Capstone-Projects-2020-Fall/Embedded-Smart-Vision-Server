@@ -5,10 +5,11 @@ import struct
 import threading
 from queue import Queue
 from socket import socket
-
+from datetime import datetime
 import cv2
 
 from SocketServer.ByteStreamAdapter import bs_adapter
+from SocketServer.WebAppInterface import WebAppInterface
 
 lbl = "Incoming Thread - "
 
@@ -146,6 +147,7 @@ class IncomingThread(threading.Thread):
 
         # Release the video writer
         out.release()
+        WebAppInterface.getInstance().add_video_data(path, received_tags)
 
     def set_running(self, option: bool):
         self.running = option
@@ -171,9 +173,12 @@ class IncomingThread(threading.Thread):
             with open(cf_path, 'wb') as file:
                 file.write(struct.pack("i", 1))
 
+        now = datetime.now()
+        date_time = now.strftime("%m-%d-%Y-%H-%M-%S")
+        print("date and time:", date_time)
         # The title of the video file
         video_title = "{node_name}-{date_time}-Video-{cnt}.mp4".\
-            format(node_name=node_name, date_time="11-14-2020", cnt=cnt)
+            format(node_name=node_name, date_time=date_time, cnt=cnt)
 
         video_path = os.path.join(os.getcwd(), 'Videos', video_title)
         return video_path

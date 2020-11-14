@@ -6,6 +6,7 @@ from SocketMessage import SocketMessage, SocketMessageType
 from . import video_streams
 from application.VideoStream.VideoFeed import VideoStream
 from .VideoThread import VideoThread
+from application import DBInterface
 
 
 class ListeningThread(threading.Thread):
@@ -28,8 +29,14 @@ class ListeningThread(threading.Thread):
                         self.add_node(message.data)
                     elif message.message_type == SocketMessageType.FRAME:
                         self.update_frame(message.data)
+
                     elif message.message_type == SocketMessageType.UPLOAD:
-                        pass
+                        # We want to add a new video to the data base
+                        # Unpack our tuple
+                        path, tags = message.data
+                        # Call out to the database interface to save it
+                        DBInterface.add_video(path, tags)
+
                     elif message.message_type == SocketMessageType.NEW_STREAM:
                         # We have received a new stream to setup
                         node_name = message.data['node_name']
@@ -78,20 +85,15 @@ class SocketInterface:
 
     # Add the stream to our version of the node_information
     def add_stream(self, node_name, stream_pipe):
-        print("SocketInterface: add_stream called")
-        print("SocketInterface: Add_Stream", node_name)
-        print("SocketInterface: Add_Stream", self.connected_nodes)
         if node_name in self.connected_nodes:
             # Store the pipe
             self.connected_nodes[node_name].stream_connection = stream_pipe
             video_streams[node_name] = VideoStream()
-            print(video_streams[node_name])
             self.connected_nodes[node_name].video_camera = video_streams[node_name]
             self.connected_nodes[node_name].video_thread = VideoThread(name=node_name,
                                                                        lf_pipe=stream_pipe,
                                                                        v_feed=video_streams[node_name])
             self.connected_nodes[node_name].video_thread.start()
-            print("Add stream result: " + self.connected_nodes[node_name].to_string())
         else:
             print("Failed to find an active connection for this stream, closing it")
 
