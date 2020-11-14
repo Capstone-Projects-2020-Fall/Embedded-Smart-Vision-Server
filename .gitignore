@@ -22,3 +22,7 @@ testvid.mp4
 .idea/workspace.xml
 *.mp4
 *.cnt
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/modules.xml
+.idea/vcs.xml
