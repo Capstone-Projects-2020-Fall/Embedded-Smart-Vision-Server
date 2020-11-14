@@ -8,3 +8,8 @@ testvid.mp4
 *.pyc
 *.pyc
 *.pyc
+*.pyc
+.idea/workspace.xml
+.idea/misc.xml
+.idea/misc.xml
+.idea/Embedded-Smart-Vision-Server.iml
