@@ -7,6 +7,7 @@ from . import video_streams
 from application.VideoStream.VideoFeed import VideoStream
 from .VideoThread import VideoThread
 from application import DBInterface
+from application import socketio
 
 
 class ListeningThread(threading.Thread):
@@ -94,6 +95,9 @@ class SocketInterface:
                                                                        lf_pipe=stream_pipe,
                                                                        v_feed=video_streams[node_name])
             self.connected_nodes[node_name].video_thread.start()
+
+
+
         else:
             print("Failed to find an active connection for this stream, closing it")
 
@@ -107,3 +111,9 @@ class SocketInterface:
     # Returns the stored list of connected nodes
     def get_node_list(self):
         return self.connected_nodes
+
+
+@socketio.on('frame')
+def handle_pulse(node_name):
+    SI: SocketInterface = SocketInterface.getInstance()
+    SI.connected_nodes[node_name].video_thread.pulse_emitter()

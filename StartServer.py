@@ -16,9 +16,7 @@ if __name__ == '__main__':
                                  name="Socket_Server",
                                  args=(web_app_conn, ))
 
-    print('hello')
     socket_server_proc.start()
-    print('hello')
 
     start_webapp(socket_server_conn)
 
