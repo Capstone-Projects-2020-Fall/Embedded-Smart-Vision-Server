@@ -26,11 +26,12 @@ class StreamThread(threading.Thread):
             size_bytes = self.connection.recv(4)
             msg_size = struct.unpack('I', size_bytes)[0]
             frame = get_bytes(msg_size, self.connection)
+            print(type(frame))
             # frame = pickle.loads(frame_data)
             # Unpickle the raw data we received
             # Send it down the web pipe after verifying our pipe is set
             if self.web_pipe is not None:
-                self.web_pipe.send(frame)
+                self.web_pipe.send(bytes(frame))
         self.break_down()
 
     def set_web_pipe(self, web_pipe):
