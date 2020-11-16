@@ -25,8 +25,8 @@ class StreamThread(threading.Thread):
             # This is the loop that receives frames from the client and passes them to be shown by the webportal
             size_bytes = self.connection.recv(4)
             msg_size = struct.unpack('I', size_bytes)[0]
-            frame_data = get_bytes(msg_size, self.connection)
-            frame = pickle.loads(frame_data)
+            frame = get_bytes(msg_size, self.connection)
+            # frame = pickle.loads(frame_data)
             # Unpickle the raw data we received
             # Send it down the web pipe after verifying our pipe is set
             if self.web_pipe is not None:

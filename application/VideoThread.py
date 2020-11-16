@@ -28,7 +28,7 @@ class VideoThread(threading.Thread):
     def pulse_emitter(self):
         self.emitter = True
         self.pulse = datetime.now()
-        print("Pulsing emitter: ", self.emitter, self.pulse)
+        # print("Pulsing emitter: ", self.emitter, self.pulse)
 
     def run(self):
         print("Starting" + self.name + " Which is a video thread")
@@ -36,9 +36,10 @@ class VideoThread(threading.Thread):
         while self.running:
             # This thread loops around receiving data from the socket server and pushing it to the video stream
             frame = self.lf_pipe.recv()
-            ret, frame_encode = cv2.imencode('.jpg', frame)
+            print("Received frame", type(frame))
+            # ret, frame_encode = cv2.imencode('.jpg', frame)
 
-            frame_bytes = frame_encode.tobytes()
+            # frame_bytes = frame_encode.tobytes()
 
             # self.v_feed.update_frame(frame_encode)
 
@@ -52,4 +53,4 @@ class VideoThread(threading.Thread):
             if time_delta.seconds > 2:
                 self.emitter = False
             if self.emitter:
-                socketio.emit('frame-'+self.name, frame_bytes)
+                socketio.emit('frame-'+self.name, {"frame": frame})

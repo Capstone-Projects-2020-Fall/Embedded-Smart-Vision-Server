@@ -115,5 +115,7 @@ class SocketInterface:
 
 @socketio.on('frame')
 def handle_pulse(node_name):
+
     SI: SocketInterface = SocketInterface.getInstance()
-    SI.connected_nodes[node_name].video_thread.pulse_emitter()
+    if node_name in SI.connected_nodes:
+        SI.connected_nodes[node_name].video_thread.pulse_emitter()
