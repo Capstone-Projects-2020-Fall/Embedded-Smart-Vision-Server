@@ -30,7 +30,7 @@ def show_user_login_post():
 		request_verification_token(user.verification_phone)
 		session['username'] = user.username
 		session['phone'] = user.verification_phone
-		return redirect(url_for('user2fa.verify_2fa', next = next_page, remember = '1', if form.remember_me.data else '0'))
+		return redirect(url_for('user2fa.verify_2fa', next = next_page, remember = '1' if form.remember_me.data else '0'))
 
 	login_user(user, remember=remember)
-	return redirect(url_for('user_profile.show_user_profile'))
+	return redirect(url_for('user_profile.show_user_profile', user = user))

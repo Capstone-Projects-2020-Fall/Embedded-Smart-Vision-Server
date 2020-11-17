@@ -19,4 +19,5 @@ class User(UserMixin, db.Model):
         password = db.Column(db.String(100))
         name = db.Column(db.String(1000))
         verification_phone = db.Column(db.String(16))
-
+        def two_factor_enabled(self):
+            return self.verification_phone is not None

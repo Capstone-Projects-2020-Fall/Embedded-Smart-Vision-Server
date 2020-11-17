@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block header %}
+<h1>{% block title %}Welcome to the verification of enabling 2-factor authentication page!{% endblock %}</h1>
+{% endblock %}
 
 {% block content %}
-    <h1>Two-Factor Authentication</h1>
-    <p>Please enter the token that was sent to your phone.</p>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
+<h1>Please enter the verification code that was sent to your cell phone number!</h1>
+<div class="column is-4 is-offset-4">
+    <h3 class="title">User Verify Enable 2-Factor Authentication Page</h3>
+    <div class="box">
+        <form nethod="POST" action="/verify2fa">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="verificationcode" name="verificationcode" placeholder="Verification Code" autofocus="">
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Enable 2-Factor Authentication</button>
+        </form>
     </div>
+</div>
 {% endblock %}

@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
-{% import 'bootstrap/wrf.html' as wtf %}
+
+{% block header %}
+<h1>{% block title %}Welcome to the disabling of 2-factor authentication page!</h1>
+{% endblock %}
 
 {% block content %}
-    <h1>Disable Two-Factor Authentication</h1>
-    <p>Please click the button below to disable two-factor authentication on your account.</p>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
-    </div>
+<h1>Please click on the button below to disable 2-factor authentication on your account!</h1>
+<button class="button is-block is-info is-large is-fullwidth">Disable 2-Factor Authentication</button>
 {% endblock %}

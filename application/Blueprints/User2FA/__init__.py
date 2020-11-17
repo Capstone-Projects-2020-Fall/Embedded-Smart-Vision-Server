@@ -3,8 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from application.VideoStream.VideoFeed import VideoStream
 from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 
 db = SQLAlchemy()
+bootstrap = Bootstrap()
 
 root_directory = os.path.abspath(os.path.join(os.getcwd(), 'application'))
 root_directory = root_directory + '/'
@@ -21,6 +23,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
     
     db.init_app(app)
+    bootstrap.init_app(app)
     
     login_manager = LoginManager()
     login_manger.login_view = 'user_login.show_user_login'

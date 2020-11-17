@@ -1,34 +1,23 @@
 {% extends 'base.html' %}
-{% import bootstrap/wtf.html %}
+
+{% block header %}
+<h1>{% block title %}Welcome to the enabling of 2-factor authentication page!{% endblock %}</h1>
+{% endblock %}
 
 {% block content %}
-    <h1>Enable Two-Factor Authentication</h1>
-    <p>Please enter your mobile number to activate two-factor authentication on your account.</p>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
+<h1>You must enter a country code started with a + followed by area code followed by the cell phone number with no spaces and no special characters to activate two-factor authentication on your account!</h1>
+<div class="column is-4 is-offset-4">
+    <h3 class="title">User Enable 2-Factor Authentication Page</h3>
+    <div class="box">
+        <form method="POST" action="/enable_2fa">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="cellphonenumber" name="cellphonenumber" placeholder="Your Cell Phone" autofocus="">
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Send Verification Code To My Cell Phone</button>
+        </form>
     </div>
+</div>
 {% endblock %}
-
-{% block styles %}
-    {{ super() }}
-    <link rel="stylesheet", href="https://cdnjs.cloudFlare.com/ajax/libs/intl-tel-input/16.0.4/css/intlTelInput.css">
-{% endblock %}
-
-{% block scripts %}
-    {{ super() }}
-    <script src="https://cdnjs.cloudFlare.com/ajax/libs/intel-tel-input/16.0.4.js/intlTelInput-jquery.min.js"></script>
-    <script>
-        $("#verification_phone").css({position: 'absolute', top: '-9999px' left: '-9999px'});
-        $("#verification_phone").parent().append('<div><input type="tel" id="_verification_phone"></div>');
-        $("#_verfication_phone").intlTelInput({
-            separateDialCode: true,
-            ultilsScript: "https://cdnjs.cloudFlare.com/ajax/libs/intl-tel-input/16.0.4/js/utils.js",
-        });
-        $("#_verification_phone").intlTelInput("setNumber", $("#verification_phone").val());
-        $("#_verification_phone").blur(function() {
-            $("#verification_phone").val($("#_verification_phone").intlTelInput("getNumber"));
-        });
-    </script>
-{% endblock %}
+            
