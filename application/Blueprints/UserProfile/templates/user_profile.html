@@ -5,5 +5,12 @@
 {% endblock %}
 
 {% block content %}
-  <p>Use this page to configure the system, view live video feed, and view stored videos</p>
+  <p>Use this page to configure the system, view live video feed, view stored videos, and enable/disable two-factor authentication.</p>
+  
+  {% if not user.two_factor_enabled() %}
+  <p><a href="{{ url_for('user2fa.enable_2fa') }}">{{ _('Enable two-factor authentication') }}</a></p>
+  {% else %}
+  <p><a href="{{ url_for('user2fa.disable_2fa') }}">{{ _('Disable two-factor authentication') }}</a></p>
+  {% endif %}
+
 {% endblock %}

@@ -1,7 +1,7 @@
 # This thread will hook up to a specific video feed and process and update the frames as they come in
 import threading
 
-from multiprocessing.connection import PipeConnection
+from multiprocessing.connection import Pipe
 
 import cv2
 
