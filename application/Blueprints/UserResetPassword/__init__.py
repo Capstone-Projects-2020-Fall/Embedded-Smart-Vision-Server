@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from application.VideoStream.VideoFeed import VideoStream
 from flask_login import LoginManager
+from flask_mail import Mail
 
 db = SQLAlchemy()
 
@@ -21,6 +22,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
     
     db.init_app(app)
+    mail.init_app(app)
     
     login_manager = LoginManager()
     login_manager.login_view = 'user_login.show_user_login'

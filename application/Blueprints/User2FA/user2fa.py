@@ -4,6 +4,7 @@ from application.Blueprints.User2FA.form_2fa import Enable2faForm, Confirm2faFor
 from .models import User
 from application.Blueprints.User2FA.twilio_verify import request_verification_token, check_verification_token
 from . import bootstrap
+from application import db
 
 user2fa = Blueprint('user2fa', __name__, template_folder='templates')
 

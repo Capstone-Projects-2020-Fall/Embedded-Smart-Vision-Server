@@ -23,7 +23,7 @@ def create_app():
     db.init_app(app)
     
     login_manager = LoginManager()
-    login_manger.login_view = 'user_login.show_user_login'
+    login_manager.login_view = 'user_login.show_user_login'
     login_manager.init_app(app)
     
     from .models import User
@@ -39,6 +39,8 @@ def create_app():
     from application.Blueprints.UserLogin.user_login import user_login
     from application.Blueprints.UserSignup.user_signup import user_signup
     from application.Blueprints.UserLogout.user_logout import user_logout
+    from application.Blueprints.User2FA.user2fa import user2fa
+    from application.Blueprints.UserResetPassword.user_reset_password import user_reset_password
     
     app.register_blueprint(home_page)
     app.register_blueprint(dashboard)
@@ -47,5 +49,7 @@ def create_app():
     app.register_blueprint(user_login)
     app.register_blueprint(user_signup)
     app.register_blueprint(user_logout)
+    app.register_blueprint(user2fa)
+    app.register_blueprint(user_reset_password)
 
     return app
