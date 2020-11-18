@@ -34,6 +34,12 @@ class SocketMessage:
                                   'stream_pipe': stream_pipe})
         return msg
 
+    @staticmethod
+    def add_video_message(path, tags):
+        msg = SocketMessage(message_type=SocketMessageType.UPLOAD,
+                            data=(path, tags))
+        return msg
+
 
 # Called to create a message that will send a frame from a node
 def create_frame_message(frame: bytearray, node) -> SocketMessage:
