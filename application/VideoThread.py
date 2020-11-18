@@ -36,21 +36,16 @@ class VideoThread(threading.Thread):
         while self.running:
             # This thread loops around receiving data from the socket server and pushing it to the video stream
             frame = self.lf_pipe.recv()
-            print("Received frame", type(frame))
             # ret, frame_encode = cv2.imencode('.jpg', frame)
-
             # frame_bytes = frame_encode.tobytes()
-
             # self.v_feed.update_frame(frame_encode)
-
             # cv2.imshow('Frame', frame)
             # if cv2.waitKey(1) & 0xFF == ord('q'):
             #     break
-
             now = datetime.now()
             time_delta = now - self.pulse
             # Check if it has been more then a second since the last pulse
             if time_delta.seconds > 2:
                 self.emitter = False
             if self.emitter:
-                socketio.emit('frame-'+self.name, {"frame": frame})
+                socketio.emit('frame-'+self.name, bytes(frame))
