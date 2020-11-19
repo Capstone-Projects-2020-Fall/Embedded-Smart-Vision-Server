@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request, session
 from werkzeug.urls import url_parse
 from flask_login import login_user, current_user, login_required
-from flask_bebel import _
+from flask_babel import _
 from application import db
 from application.Blueprints.UserResetPassword.forms import ResetPasswordRequestForm, ResetPasswordForm
 from .models import User
@@ -36,4 +36,4 @@ def reset_password(token):
 		db.session.commit()
 		flash(_('Your password has been reset.'))
 		return redirect(url_for('user_login.show_user_login'))
-	return render_template('reset_password.html', form = form)
+	return render_template('reset_password_form.html', form = form)
