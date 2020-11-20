@@ -24,4 +24,5 @@ python3 terminal with the following command: python3. Use the terminal to initia
 2. socket_io, app = create_app()
 3. app.app_context().push()
 4. db.create_all()
+
 If all dependencies are downloaded correctly and database is initialized, the server should start with the following command: python3 StartServer.py
