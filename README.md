@@ -15,3 +15,13 @@ The server does not need to be built by the testing team. Instead, it should be 
 gallery will only show tags with no accompanying video thumbnail
 * If live feed is not working, no frame will be displayed (instead of an image alerting the user live feed cannot be accessed)
 * Nodes are still displayed on the dashboard even after they've disconnected. To test if a node is still connected, you (for now) need to click on the node and view the live feed
+
+## Building
+To run the server you must have python3 installed on your machine as well as pip (python's tool for downloading dependencies). Download the repository as a zip file and unzip the
+file. Using pip, download all of the required dependencies from the attached 'requirements.txt' file using the following command: pip install -r requirements.txt. Then, open the
+python3 terminal with the following command: python3. Use the terminal to initialize the database using the following python lines:
+1. from application import db, create_app
+2. socket_io, app = create_app()
+3. app.app_context().push()
+4. db.create_all()
+If all dependencies are downloaded correctly and database is initialized, the server should start with the following command: python3 StartServer.py
