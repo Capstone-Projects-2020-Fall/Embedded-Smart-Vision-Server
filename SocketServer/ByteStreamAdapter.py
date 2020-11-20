@@ -41,9 +41,21 @@ class bs_adapter:
         return b_arr.decode('utf-8')
 
     def read_image(self, cnt, serializer=SRL_PICKLED):
-        b_arr = self.get_bytes(cnt)
+        
+        
+        msg_size = cnt
+
+        frame = self.conn.recv(4096)
+        # frame = get_bytes(msg_size, self.connection)
+        while len(frame) < msg_size:
+            if msg_size - len(frame) >= 4096:
+                frame += self.conn.recv(4096)
+                # msg_size -= 4096
+            else:
+                frame += self.conn.recv(msg_size - len(frame))
+
         img = None
         if serializer == self.SRL_PICKLED:
-            img = pickle.loads(b_arr)
+            img = pickle.loads(frame)
 
         return img

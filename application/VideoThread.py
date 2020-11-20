@@ -3,7 +3,7 @@ import threading
 import time
 from datetime import datetime
 
-from multiprocessing.connection import PipeConnection
+from multiprocessing.connection import Connection
 
 import cv2
 
@@ -19,7 +19,7 @@ class VideoThread(threading.Thread):
                  v_feed=None):
         threading.Thread.__init__(self)
         self.name = name
-        self.lf_pipe: PipeConnection = lf_pipe
+        self.lf_pipe: Connection = lf_pipe
         self.v_feed: VideoStream = v_feed
         self.running = False
         self.emitter = False
