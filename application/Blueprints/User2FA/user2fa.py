@@ -40,7 +40,7 @@ def verify_2fa():
 def verify_2fa_post():
     token = request.form.get('verificationcode')
     
-    if check_verification_token(phone, token)
+    if check_verification_token(phone, token):
         del session['phone']
         if current_user.is_authenticated:
             current_user.verification_phone = phone
