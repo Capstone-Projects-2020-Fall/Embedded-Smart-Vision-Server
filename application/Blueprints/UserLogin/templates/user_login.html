@@ -7,6 +7,7 @@
 {% block content %}
 <div class="column is-4 is-offset-4">
 	<h3 class="title">User Login Page</h3>
+	<p><a href="{{ url_for('user_reset_password.reset_password_request') }}">Please click here to reset your password.</a></p>
 	<div class="box">
 
 		{% with messages = get_flashed_messages() %}

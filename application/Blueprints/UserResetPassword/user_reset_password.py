@@ -21,7 +21,7 @@ def reset_password_request():
 			send_password_reset_email(user)
 		flash(_('Check your email for the instructions to reset your password'))
 		return redirect(url_for(user_login.show_user_login))
-	return render_template('reset_password_request.html', title = _('Reset Password'), form = form)
+	return render_template('reset_password_request.html', title = 'Reset-Password', form = form)
 	
 @user_reset_password.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
