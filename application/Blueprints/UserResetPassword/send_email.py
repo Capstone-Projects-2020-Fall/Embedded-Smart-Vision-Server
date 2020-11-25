@@ -1,7 +1,7 @@
 from threading import Thread
 from flask import current_app
 from flask_mail import Message
-from application.Blueprints.UserResetPassword import mail
+from flask_mail import Mail
 
 def send_async_email(app, msg):
 	with app.app_context():

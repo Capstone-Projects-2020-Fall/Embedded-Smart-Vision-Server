@@ -1,6 +1,6 @@
 from flask import render_template, current_app
-from flask_bebel import _
-from application.Blueprints.UserResetPassword.email import send_email
+from flask_babel import _
+from application.Blueprints.UserResetPassword.send_email import send_email
 
 def send_password_reset_email(user):
 	token = user.get_reset_password_token()

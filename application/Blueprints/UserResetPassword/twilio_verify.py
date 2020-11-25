@@ -5,7 +5,7 @@ def _get_twilio_verify_client():
 	return Client(
 		current_app.config['TWILIO_ACCOUNT_SID'], 
 		current_app.config['TWILIO_AUTH_TOKEN'].verify.services(
-			current_app.config['TWILIO_VERIFY_SERVICE_SID'])
+			current_app.config['TWILIO_VERIFY_SERVICE_SID']))
 			
 def request_verification_token(phone):
 	verify = _get_twilio_verify_client()
