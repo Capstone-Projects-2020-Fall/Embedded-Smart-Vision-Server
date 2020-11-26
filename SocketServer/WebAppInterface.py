@@ -45,5 +45,10 @@ class WebAppInterface:
         stream_thread.set_web_pipe(h)
         self.web_app_pipe.send(msg)
 
+    def add_video_data(self, video_path, tags):
+        print("WebAppInterface - adding video to DB", video_path, tags)
+        msg = SocketMessage.add_video_message(video_path, tags)
+        self.web_app_pipe.send(msg)
+
     def disconnect_stream(self):
         pass

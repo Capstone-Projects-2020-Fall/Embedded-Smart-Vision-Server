@@ -91,5 +91,4 @@ def get_bytes(cnt: int, conn: socket):
             data += conn.recv(buf_size)
             # Keep track of how many bytes we have consumed
             remaining_bytes = remaining_bytes - buf_size
-
     return data

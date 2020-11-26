@@ -22,7 +22,7 @@ class NodeStatus(Enum):
 # connection
 
 class NodeConnection:
-    def __init__(self, inc_messages=None):
+    def __init__(self, name="not set", inc_messages=None):
         # Holds data that needs to be sent
         self.outgoing_queue: Queue = Queue()
         # Holds data the has come in
@@ -37,7 +37,7 @@ class NodeConnection:
         self.status = NodeStatus.CONNECTING
 
         # The name of the node
-        self.name = "NOT SET"
+        self.name = name
 
         # The socket connection for this node
         self.connection = None
