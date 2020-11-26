@@ -9,4 +9,4 @@ def start_webapp(socket_connection):
     app, socketio = create_app()
     socket_interface = SocketInterface(connection=socket_connection)
 
-    socketio.run()
+    socketio.run(app, host='0.0.0.0')

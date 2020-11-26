@@ -6,7 +6,7 @@ import threading
 from queue import Queue
 from socket import socket
 from datetime import datetime
-import cv2
+# import cv2
 
 from SocketServer.ByteStreamAdapter import bs_adapter
 from SocketServer.WebAppInterface import WebAppInterface
@@ -120,7 +120,7 @@ class IncomingThread(threading.Thread):
         print(lbl, "Frame count:", frame_count, "| Width,Height:", frame_width, ",", frame_height)
 
         # Open up the video writer to write the file
-        out = cv2.VideoWriter(path, cv2.VideoWriter_fourcc('m', 'p', '4', 'a'), 10, (frame_width, frame_height))
+        # out = cv2.VideoWriter(path, cv2.VideoWriter_fourcc('m', 'p', '4', 'a'), 10, (frame_width, frame_height))
         	# cv2.VideoWriter_fourcc('a', 'v', 'c', '1')
         # While we still have frames to receive
         while frame_count > 0:

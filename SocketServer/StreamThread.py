@@ -4,7 +4,7 @@ import struct
 import threading
 import pickle
 
-import cv2
+# import cv2
 
 from SocketServer.MessagePack import get_bytes
 

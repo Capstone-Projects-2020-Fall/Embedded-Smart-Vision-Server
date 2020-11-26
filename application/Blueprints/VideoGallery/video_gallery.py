@@ -5,7 +5,7 @@ from base64 import b64encode
 from flask import Blueprint, render_template, send_file, request
 from ...models import Video, Tag
 from ... import video_directory
-import cv2 as cv
+# import cv2 as cv
 from PIL import Image
 import io
 
@@ -64,7 +64,7 @@ class VideoWithTag:
         self.tags = self.tags[0:len(self.tags) - 2]
 
         size = 100, 100
-        video = cv.VideoCapture(video_directory + path)
+        # video = cv.VideoCapture(video_directory + path)
         if not video.isOpened():
             print('Error opening video: ', video_directory + path)
         if not os.path.isfile(video_directory + path):
@@ -73,7 +73,7 @@ class VideoWithTag:
         if video.isOpened() and video_length > 0:
             print('Opened Video Capture')
             success, thumbnail = video.read()
-            thumbnail = cv.cvtColor(thumbnail, cv.COLOR_BGR2RGB)
+            # thumbnail = cv.cvtColor(thumbnail, cv.COLOR_BGR2RGB)
             thumbnail = Image.fromarray(thumbnail)
             thumbnail.thumbnail(size)
             # Following Code from https://stackoverflow.com/questions/59581565/how-to-display-flask-image-to-html-directly-without-saving
