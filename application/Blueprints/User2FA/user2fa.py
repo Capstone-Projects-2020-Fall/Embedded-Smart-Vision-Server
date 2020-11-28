@@ -22,16 +22,6 @@ def enable_2fa_post():
     
     return redirect(url_for('user2fa.verify_2fa'))
 
-# @user2fa.route('/enable_2fa', methods=['GET', 'POST'])
-# @login_required
-# def enable_2fa():
-#    form = Enable2faForm()
-#    if form.validate_on_submit():
-#        session['phone'] = form.verification_phone.data
-#        request_verification_token(session['phone'])
-#        return redirect(url_for('user2fa.verify_2fa'))
-#    return render_template('enable_2fa.html', form = form, current_page = 'enable_2fa')
-
 @user2fa.route('/verify2fa')
 def verify_2fa():
     return render_template('verify_2fa.html', current_page = 'verify_2fa')
@@ -54,27 +44,6 @@ def verify_2fa_post():
             login_user(user, remember = remember)
             return redirect(url_for('user_profile.show_user_profile'))
 
-# @user2fa.route('/verify2fa', methods=['GET', 'POST'])
-# def verify_2fa():
-#    form = Confirm2faForm()
-#    if check_verification_token(phone, form.token.data):
-#        del session['phone']
-#        if current_user.is_authenticated:
-#            current_user.verification_phone = phone
-#            db.session.commit()
-#            flash('Two-factor authentication is now enabled')
-#            return redirect(url_for('user_profile.show_user_profile'))
-#        else:
-#            username: session['username']
-#            del session['username']
-#            user = User.query.filter_by(username=username).first()
-#            next_page = request.args.get('next')
-#            remember = request.args.get('remember', '0') == '1'
-#            login_user(user, remember=remember)
-#            return redirect(next_page)
-#        form.token.errors.append('Invalid token')
-#    return render_template('verify_2fa.html', form = form, current_page = 'verify_2fa')
-
 @user2fa.route('/disable_2fa')
 @login_required
 def disable_2fa():
@@ -87,15 +56,3 @@ def disable_2fa_post():
     db.session.commit()
     flash('Two-factor authentication is now disabled.')
     return redirect(url_for('user_profile.show_user_profile'))
-
-# @user2fa.route('/disable_2fa', methods=['GET', 'POST'])
-# @login_required
-# def disable_2fa():
-#    form = Disable2faForm()
-#    if form.validate_on_submit():
-#        current_user.verification_phone = None
-#        db.session.commit()
-#        flash('Two-factor authentication is now disabled.')
-#        return redirect(url_for('user_profile.show_user_profile'))
-#    return render_template('disable_2fa.html', form = form, current_page = 'disable_2fa')
-

@@ -7,7 +7,7 @@ from flask_login import LoginManager
 
 from flask_socketio import SocketIO
 
-# import socketio
+
 
 from flask_mail import Mail
 from flask_babel import Babel
@@ -16,6 +16,7 @@ from config import Config
 db = SQLAlchemy()
 mail = Mail()
 babel = Babel()
+socketio = SocketIO()
 
 root_directory = os.path.abspath(os.path.join(os.getcwd(), 'application'))
 root_directory = root_directory + '/'
@@ -35,6 +36,7 @@ log.setLevel(logging.ERROR)
 db.init_app(app)
 mail.init_app(app)
 babel.init_app(app)
+socketio.init_app(app)
 
 # from application.Blueprints.HomePage.home_page import home_page
 # from application.Blueprints.Dashboard.dashboard import dashboard
@@ -51,10 +53,15 @@ def create_app():
     
     app.config['SECRET_KEY'] = 'secret-key'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    app.config['TWILIO_ACCOUNT_SID'] = 'ACeb42d754baacf9cda420485c10ac5e07'
+    app.config['TWILIO_AUTH_TOKEN'] = '490a7f9b7896a3ac79f378cd7e45f768'
+    app.config['TWILIO_VERIFY_SERVICE_SID'] = 'VA47f896360d18d82d79bbf6267c72ed1d'
+    
     
     db.init_app(app)
     mail.init_app(app)
     babel.init_app(app)
+    socketio.init_app(app)
     
     login_manager = LoginManager()
     login_manager.login_view = 'user_login.show_user_login'
@@ -65,25 +72,6 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
-    
-    app.config['MAIL_SERVER'] = 'Mail_Server'
-    
-    if not app.debug and not app.testing:
-        if app.config['MAIL_SERVER']:
-            auth = None
-            if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
-                auth = (app.config['MAIL_USERNAME'],
-                        app.config['MAIL_PASSWORD'])
-            secure = None
-            if app.config['MAIL_USE_TLS']:
-                secure = ()
-            mail_handler = SMTPHandler(
-                mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
-                fromaddr='no-reply@' + app.config['MAIL_SERVER'],
-                toaddrs=app.config['ADMINS'], subject='Embedded Smart Vision Failure',
-                credentials=auth, secure=secure)
-            mail_handler.setLevel(logging.ERROR)
-            app.logger.addHandler(mail_handler)
     
     from application.Blueprints.HomePage.home_page import home_page
     from application.Blueprints.Dashboard.dashboard import dashboard

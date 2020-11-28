@@ -8,24 +8,29 @@ user_signup = Blueprint('user_signup', __name__, template_folder='templates')
 
 @user_signup.route('/usersignup')
 def show_user_signup():
-	return render_template('user_signup.html', current_page='user_signup')
+    return render_template('user_signup.html', current_page='user_signup')
 
 @user_signup.route('/usersignup', methods=['POST'])
 def show_user_signup_post():
-	email = request.form.get('email')
-	username = request.form.get('username')
-	name = request.form.get('name')
-	password = request.form.get('password')
+    email = request.form.get('email')
+    username = request.form.get('username')
+    name = request.form.get('name')
+    password = request.form.get('password')
+    confirm_password = request.form.get('confirmpassword')
 
-	user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(email=email).first()
 
-	if user:
-		flash('Email address already exists')
-		return redirect(url_for('user_signup.show_user_signup'))
+    if user:
+        flash('Email address already exists')
+        return redirect(url_for('user_signup.show_user_signup'))
 
-	new_user = User(email=email, username=username, name=name, password=generate_password_hash(password, method='sha256'))
+    if password == confirm_password:
+        new_user = User(email=email, username=username, name=name, password=generate_password_hash(password, method='sha256'))
+    else:
+        flash('Passwords do not match! Please try again!')
+        return redirect(url_for('user_signup.show_user_signup'))
 
-	db.session.add(new_user)
-	db.session.commit()
+    db.session.add(new_user)
+    db.session.commit()
 
-	return redirect(url_for('user_login.show_user_login'))
+    return redirect(url_for('user_login.show_user_login'))

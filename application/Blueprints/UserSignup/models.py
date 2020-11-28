@@ -37,4 +37,16 @@ class User(UserMixin, db.Model):
             id = jwt.decode(token, 'SECRET_KEY', algorithm=['HS256'])['reset_password']
         except:
             return
-        return User.query.get(id)        
+        return User.query.get(id)
+    
+    def set_password(self, password):
+        self.password = password
+        
+    def set_name(self, name):
+        self.name = name
+        
+    def self_email(self, email):
+        self.email = email
+        
+    def self_username():
+        self.username = username

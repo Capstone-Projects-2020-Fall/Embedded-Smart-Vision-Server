@@ -10,73 +10,29 @@ from application.Blueprints.UserResetPassword.twilio_verify import request_verif
 
 user_reset_password = Blueprint('user_reset_password', __name__, template_folder='templates')
 
-@user_reset_password.route('/reset_password_request')
-def reset_password_request():
-    return render_template('reset_password_request.html', current_page='reset_password')
+@user_reset_password.route('/reset_password_form')
+def reset_password_form():
+    return render_template('reset_password_form.html', current_page='reset_password_form')
 
-@user_reset_password.route('/reset_password_request', methods=['POST'])
-def reset_password_request_post():
+@user_reset_password.route('/reset_password_form', methods=['POST'])
+def reset_password_form_post():
     email = request.form.get('email')
+    username = request.form.get('username')
+    name = request.form.get('name')
+    new_password = request.form.get('newpassword')
+    confirm_new_password = request.form.get('confirmnewpassword')
     
-    if current_user.is_authenticated:
-        return redirect(url_for('user_profile.show_user_profile'))
-    
-    user = User.query.filter_by(email = email).first()
-    
-    if user:
-        send_password_reset_email(user)
-        
-    flash(_('Check your email for the instructions to reset your password'))
-    
-    return redirect(url_for('user_login.show_user_login'))
-
-# @user_reset_password.route('/reset_password_request', methods=['GET', 'POST'])
-# def reset_password_request():
-#	if current_user.is_authenticated:
-#		return redirect(url_for('user_login.show_user_login'))
-#	form = ResetPasswordRequestForm()
-#	if form.validate_on_submit():
-#		user = User.query.filter_by(email = form.email.data).first()
-#		if user:
-#			send_password_reset_email(user)
-#		flash(_('Check your email for the instructions to reset your password'))
-#		return redirect(url_for('user_login.show_user_login'))
-#	return render_template('reset_password_request.html', title = 'Reset-Password', form = form)
-
-@user_reset_password.route('/reset_password/<token>')
-def reset_password(token):
-    return render_template('reset_password_form.html', current_page = 'reset_password_form')
-
-@user_reset_password.route('/reset_password/<token>', methods=['POST'])
-def reset_password_post(token):
-    password = request.form.get('newpassword')
-    confirm_password = request.form.get('confirmnewpassword')
+    user = User.query.filter_by(email=email).first()
     
     if current_user.is_authenticated:
         return redirect(url_for('user_login.show_user_login'))
-    
-    user = User.verify_reset_password_token(token)
     
     if not user:
         return redirect(url_for('user_login.show_user_login'))
     
-    if password == confirm_password:
-        user.set_password(password)
+    if new_password == confirm_new_password:
+        user = User.query.filter_by(email=email).first()
+        user.password = new_password
         db.session.commit()
-        flash(_('Your password has been reset.'))
-        return redirect(url_for('user_login.show_user_login'))
-
-# @user_reset_password.route('/reset_password/<token>', methods=['GET', 'POST'])
-# def reset_password(token):
-#	if current_user.is_authenticated:
-#		return redirect(url_for('user_login.show_user_login'))
-#	user = User.verify_reset_password_token(token)
-#	if not user:
-#		return redirect(url_for('user_login.show_user.login'))
-#	form = ResetPasswordForm()
-#	if form.validate_on_submit():
-#		user.set_password(form.password.data)
-#		db.session.commit()
-#		flash(_('Your password has been reset.'))
-#		return redirect(url_for('user_login.show_user_login'))
-#	return render_template('reset_password_form.html', form = form)
+    
+    return redirect(url_for('user_login.show_user_login'))
