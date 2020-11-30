@@ -29,20 +29,22 @@ def verify_2fa():
 @user2fa.route('/verify2fa', methods=['POST'])
 def verify_2fa_post():
     token = request.form.get('verificationcode')
+    email = request.form.get('email')
+    cellphonenumber = request.form.get('cellphonenumber')
     
-    if check_verification_token(phone, token):
-        del session['phone']
-        if current_user.is_authenticated:
-            current_user.verification_phone = phone
-            db.session.commit()
-            flash('Two-factor authentication is now enabled')
-            return redirect(url_for('user_profile.show_user_profile'))
-        else:
-            username: session['username']
-            del session['username']
-            user = User.query.filter_by(username = username).first()
-            login_user(user, remember = remember)
-            return redirect(url_for('user_profile.show_user_profile'))
+    user = User.query.filter_by(email = email).first()
+
+    if check_verification_token(cellphonenumber, token) == True:
+        print("Before enabling of 2-factor authentication: ")
+        print("id  = {}, password = {}, email = {}, name = {}, verification_phone = {}".format(user.id, user.password, user.email, user.name, user.verification_phone))
+        user.verification_phone = phone
+        db.session.commit()
+        print('Two-factor authentication is now enabled!')
+        print("After enabling of 2-factor authentication: ")
+        print("id  = {}, password = {}, email = {}, name = {}, verification_phone = {}".format(user.id, user.password, user.email, user.name, user.verification_phone))
+        return redirect(url_for('user_profile.show_user_profile'))
+    
+    return redirect(url_for('user_profile.show_user_profile'))
 
 @user2fa.route('/disable_2fa')
 @login_required
@@ -52,7 +54,11 @@ def disable_2fa():
 @user2fa.route('/disable_2fa', methods=['POST'])
 @login_required
 def disable_2fa_post():
-    current_user.verification_phone = None
+    print("Before disabling of 2-factor authentication: ")
+    print("id  = {}, password = {}, email = {}, name = {}, verification_phone = {}".format(user.id, user.password, user.email, user.name, user.verification_phone))
+    user.verification_phone = None
     db.session.commit()
-    flash('Two-factor authentication is now disabled.')
+    print('Two-factor authentication is now disabled.')
+    print("After disabling of 2-factor authentication: ")
+    print("id  = {}, password = {}, email = {}, name = {}, verification_phone = {}".format(user.id, user.password, user.email, user.name, user.verification_phone))
     return redirect(url_for('user_profile.show_user_profile'))

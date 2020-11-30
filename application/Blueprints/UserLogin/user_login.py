@@ -15,22 +15,18 @@ def show_user_login():
 
 @user_login.route('/userlogin', methods=['GET', 'POST'])
 def show_user_login_post():
-	email = request.form.get('email')
-	username = request.form.get('username')
-	password = request.form.get('password')
-	remember = True if request.form.get('remember') else False
+    email = request.form.get('email')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    remember = True if request.form.get('remember') else False
 
-	user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(email=email).first()
 
-	if not user or not check_password_hash(user.password, password):
-		flash('Please check your login details and try again.')
-		return redirect(url_for('user_login.show_user_login'))
+    if user.two_factor_enabled():
+        request_verification_token(user.verification_phone)
+        session['email'] = user.email
+        session['phone'] = user.verification_phone
+        return redirect(url_for('user2fa.verify_2fa'))
 
-	if user.two_factor_enabled():
-		request_verification_token(user.verification_phone)
-		session['username'] = user.username
-		session['phone'] = user.verification_phone
-		return redirect(url_for('user2fa.verify_2fa', next = next_page, remember = '1' if form.remember_me.data else '0'))
-
-	login_user(user, remember=remember)
-	return redirect(url_for('user_profile.show_user_profile', user = user))
+    login_user(user, remember=remember)
+    return redirect(url_for('user_profile.show_user_profile', user = user))

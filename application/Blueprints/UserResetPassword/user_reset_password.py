@@ -7,6 +7,7 @@ from application.Blueprints.UserResetPassword.forms import ResetPasswordRequestF
 from .models import User
 from application.Blueprints.UserResetPassword.email import send_password_reset_email
 from application.Blueprints.UserResetPassword.twilio_verify import request_verification_token, check_verification_token
+from werkzeug.security import generate_password_hash, check_password_hash
 
 user_reset_password = Blueprint('user_reset_password', __name__, template_folder='templates')
 
@@ -24,15 +25,17 @@ def reset_password_form_post():
     
     user = User.query.filter_by(email=email).first()
     
-    if current_user.is_authenticated:
-        return redirect(url_for('user_login.show_user_login'))
+    print("Before reseting the password: ")
+    print("id  = {}, password = {}, email = {}, name = {}".format(user.id, user.password, user.email, user.name))
     
-    if not user:
-        return redirect(url_for('user_login.show_user_login'))
-    
-    if new_password == confirm_new_password:
-        user = User.query.filter_by(email=email).first()
-        user.password = new_password
-        db.session.commit()
-    
+    print("Before setting the value for password to an empty string: ")
+    print("id  = {}, password = {}, email = {}, name = {}".format(user.id, user.password, user.email, user.name))
+    user.password = ''
+    print("After setting the value for password to an empty string: ")
+    print("id  = {}, password = {}, email = {}, name = {}".format(user.id, user.password, user.email, user.name))
+    new_password = generate_password_hash(new_password, method='sha256')
+    user.password = new_password
+    db.session.commit()
+    print("After reseting the password: ")
+    print("id  = {}, password = {}, email = {}, name = {}".format(user.id, user.password, user.email, user.name))
     return redirect(url_for('user_login.show_user_login'))

@@ -6,7 +6,7 @@ import threading
 from queue import Queue
 from socket import socket
 from datetime import datetime
-# import cv2
+import cv2
 
 from SocketServer.ByteStreamAdapter import bs_adapter
 from SocketServer.WebAppInterface import WebAppInterface
