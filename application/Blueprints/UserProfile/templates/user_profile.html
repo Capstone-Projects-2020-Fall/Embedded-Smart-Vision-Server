@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Welcome to the user profile  page!{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <p>Use this page to configure the system, view live video feed, view stored videos, and enable/disable two-factor authentication.</p>
+  {% if not current_user.two_factor_authenticated %}
+  <p><a href="{{ url_for('user2fa.enable_2fa') }}">Enable two-factor authentication</a></p>
+  {% else %}
+  <p><a href="{{ url_for('user2fa.disable_2fa') }}">Disable two-factor authentication</a></p>
+  {% endif %}
+{% endblock %}

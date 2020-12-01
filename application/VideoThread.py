@@ -3,9 +3,11 @@ import threading
 import time
 from datetime import datetime
 
+from multiprocessing.connection import Pipe
+
 from multiprocessing.connection import Connection
 
-import cv2
+# import cv2
 
 from application.VideoStream.VideoFeed import VideoStream
 from application import socketio
