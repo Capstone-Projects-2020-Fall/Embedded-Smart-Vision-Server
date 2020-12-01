@@ -10,7 +10,7 @@ user_signup = Blueprint('user_signup', __name__, template_folder='templates')
 def show_user_signup():
     return render_template('user_signup.html', current_page='user_signup')
 
-@user_signup.route('/usersignup', methods=['POST'])
+@user_signup.route('/usersignup', methods=['GET', 'POST'])
 def show_user_signup_post():
     email = request.form.get('email')
     username = request.form.get('username')

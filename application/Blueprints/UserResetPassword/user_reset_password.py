@@ -15,7 +15,7 @@ user_reset_password = Blueprint('user_reset_password', __name__, template_folder
 def reset_password_form():
     return render_template('reset_password_form.html', current_page='reset_password_form')
 
-@user_reset_password.route('/reset_password_form', methods=['POST'])
+@user_reset_password.route('/reset_password_form', methods=['GET', 'POST'])
 def reset_password_form_post():
     email = request.form.get('email')
     username = request.form.get('username')

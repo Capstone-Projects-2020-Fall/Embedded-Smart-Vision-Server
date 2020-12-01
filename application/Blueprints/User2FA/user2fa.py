@@ -17,32 +17,51 @@ def enable_2fa():
 def enable_2fa_post():
     verification_phone = request.form.get('cellphonenumber')
     
-    session['phone'] = verification_phone
-    request_verification_token(session['phone'])
+    code = request.form.get('token')
+    verify_code = request.form.get('verifytoken')
     
-    return redirect(url_for('user2fa.verify_2fa'))
-
-@user2fa.route('/verify2fa')
-def verify_2fa():
-    return render_template('verify_2fa.html', current_page = 'verify_2fa')
-
-@user2fa.route('/verify2fa', methods=['POST'])
-def verify_2fa_post():
-    token = request.form.get('verificationcode')
     email = request.form.get('email')
-    cellphonenumber = request.form.get('cellphonenumber')
     
-    user = User.query.filter_by(email = email).first()
+    # session['phone'] = verification_phone
+    phone = verification_phone
+    
+    if code == verify_code:
+        # session['code'] = code
+        code = code
+    
+    print('Cell Phone Number: {}'.format(phone))
+    print('Code: {}'.format(code))
+    
+    user = User.query.filter_by(email=email).first()
+    user.verification_phone = phone
+    user.token = code
+    user.two_factor_enabled = True
+    db.session.commit()
+    
+    print("current user: id = {}, password = {}, email = {}, name = {}, verification_phone = {}, token = {}".format(user.id, user.password, user.email, user.name, user.verification_phone, user.token))
+    print(user.two_factor_enabled)
+    
+    return redirect(url_for('user_profile.show_user_profile'))
 
-    if check_verification_token(cellphonenumber, token) == True:
-        print("Before enabling of 2-factor authentication: ")
-        print("id  = {}, password = {}, email = {}, name = {}, verification_phone = {}".format(user.id, user.password, user.email, user.name, user.verification_phone))
-        user.verification_phone = phone
-        db.session.commit()
-        print('Two-factor authentication is now enabled!')
-        print("After enabling of 2-factor authentication: ")
-        print("id  = {}, password = {}, email = {}, name = {}, verification_phone = {}".format(user.id, user.password, user.email, user.name, user.verification_phone))
-        return redirect(url_for('user_profile.show_user_profile'))
+@user2fa.route('/login_verify_2fa')
+def login_verify_2fa():
+    return render_template('login_verify_2fa.html', current_page = 'login_verify_2fa')
+
+@user2fa.route('/login_verify_2fa', methods=['POST'])
+def login_verify_2fa_post():
+    login_code = request.form.get('logintoken')
+    email = request.form.get('email')
+    
+    login_code = login_code
+    
+    user = User.query.filter_by(email=email).first()
+    
+    code = user.token
+    
+    print('login code: {}, code: {}'.format(login_code, code))
+        
+    if login_code != code:
+        return redirect(url_for('user2fa.login_verify_2fa'))
     
     return redirect(url_for('user_profile.show_user_profile'))
 
@@ -54,11 +73,17 @@ def disable_2fa():
 @user2fa.route('/disable_2fa', methods=['POST'])
 @login_required
 def disable_2fa_post():
+    email = request.form.get('email')
+    
+    user = User.query.filter_by(email=email).first()
+    
     print("Before disabling of 2-factor authentication: ")
     print("id  = {}, password = {}, email = {}, name = {}, verification_phone = {}".format(user.id, user.password, user.email, user.name, user.verification_phone))
     user.verification_phone = None
+    user.token = ''
+    user.two_factor_enabled = False
     db.session.commit()
     print('Two-factor authentication is now disabled.')
     print("After disabling of 2-factor authentication: ")
-    print("id  = {}, password = {}, email = {}, name = {}, verification_phone = {}".format(user.id, user.password, user.email, user.name, user.verification_phone))
+    print("id  = {}, token = {}, password = {}, email = {}, name = {}, verification_phone = {}".format(user.id, user.token, user.password, user.email, user.name, user.verification_phone))
     return redirect(url_for('user_profile.show_user_profile'))

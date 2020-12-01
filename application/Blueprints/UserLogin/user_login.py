@@ -21,12 +21,10 @@ def show_user_login_post():
     remember = True if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
+    two_factor_enabled = user.two_factor_enabled
 
-    if user.two_factor_enabled():
-        request_verification_token(user.verification_phone)
-        session['email'] = user.email
-        session['phone'] = user.verification_phone
-        return redirect(url_for('user2fa.verify_2fa'))
+    if two_factor_enabled:
+        return redirect(url_for('user2fa.login_verify_2fa'))
 
     login_user(user, remember=remember)
     return redirect(url_for('user_profile.show_user_profile', user = user))
