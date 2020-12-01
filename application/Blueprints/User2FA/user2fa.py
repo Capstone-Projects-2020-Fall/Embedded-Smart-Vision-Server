@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, session, Blueprint
 from flask_login import login_user, login_required, current_user
 from application.Blueprints.User2FA.form_2fa import Enable2faForm, Confirm2faForm, Disable2faForm
-from .models import User
+from application.models import User
 from application.Blueprints.User2FA.twilio_verify import request_verification_token, check_verification_token
 from application import db
 
