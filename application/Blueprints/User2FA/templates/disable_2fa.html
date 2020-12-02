@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Welcome to the disabling of 2-factor authentication page!</h1>
+<h1>{% block title %}Welcome to the disabling of 2-factor authentication page!{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<h1>Please click on the button below to disable 2-factor authentication on your account!</h1>
-<button class="button is-block is-info is-large is-fullwidth">Disable 2-Factor Authentication</button>
+<div class="column is-4 is-offset-4">
+	<h3 class="title">User Disable 2-Factor Authentication Page</h3>
+	<div class="box">
+		<form method="POST" action="/disable_2fa">
+			<div class="field">
+				<div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Disable 2-Factor Authentication</button>
+		</form>
+	</div>
+</div>
 {% endblock %}

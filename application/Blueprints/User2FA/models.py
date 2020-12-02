@@ -24,29 +24,4 @@ class User(UserMixin, db.Model):
     verification_phone = db.Column(db.String(16))
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
-    
-    def two_factor_enabled(self):
-        return self.verification_phone is not None
-    
-    def get_reset_password_token(self, expires_in=600):
-        return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in}, 'SECRET_KEY', algorithm=['HS256'])
-    
-    @staticmethod
-    def verify_reset_password_token(token):
-        try:
-            id = jwt.decode(token, 'SECRET_KEY', algorithm=['HS256'])['reset_password']
-        except:
-            return
-        return User.query.get(id)
-    
-    def set_password(self, password):
-        self.password = password
-        
-    def set_name(self, name):
-        self.name = name
-        
-    def self_email(self, email):
-        self.email = email
-        
-    def self_username():
-        self.username = username
+    two_factor_enabled = db.Column(db.Boolean, default=False, nullable=False)

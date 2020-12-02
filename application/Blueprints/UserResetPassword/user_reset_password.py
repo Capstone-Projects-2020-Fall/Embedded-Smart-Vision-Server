@@ -4,7 +4,7 @@ from flask_login import login_user, current_user, login_required
 from flask_babel import _
 from application import db
 from application.Blueprints.UserResetPassword.forms import ResetPasswordRequestForm, ResetPasswordForm
-from .models import User
+from application.models import User
 from application.Blueprints.UserResetPassword.email import send_password_reset_email
 from application.Blueprints.UserResetPassword.twilio_verify import request_verification_token, check_verification_token
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -15,7 +15,7 @@ user_reset_password = Blueprint('user_reset_password', __name__, template_folder
 def reset_password_form():
     return render_template('reset_password_form.html', current_page='reset_password_form')
 
-@user_reset_password.route('/reset_password_form', methods=['POST'])
+@user_reset_password.route('/reset_password_form', methods=['GET', 'POST'])
 def reset_password_form_post():
     email = request.form.get('email')
     username = request.form.get('username')

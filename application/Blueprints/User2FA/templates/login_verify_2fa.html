@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Welcome to the login 2fa verification page!{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<h1>You must enter the token that you have chosen when enabling the 2-factor authentication.</h1>
+<div class="column is-4 is-offset-4">
+	<h3 class="title">User Login 2fa Verification Page</h3>
+	<div class="box">
+		<form method="POST" action="/login_verify_2fa">
+			<div class="field">
+				<div class="control">
+                    <input class="input is-large" type="logintoken" name="logintoken" placeholder="Login Token" autofocus="">
+				</div>
+			</div>
+			<div class="field">
+				<div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
+				</div>
+			</div>
+            <button class="button is-block is-info is-large is-fullwidth">Verify Login 2-Factor Authentication</button>
+		</form>
+	</div>
+</div>
+{% endblock %}
