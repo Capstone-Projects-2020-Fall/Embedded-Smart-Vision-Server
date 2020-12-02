@@ -4,7 +4,7 @@ from flask_login import login_user, current_user, login_required
 from flask_babel import _
 from application import db
 from application.Blueprints.UserResetPassword.forms import ResetPasswordRequestForm, ResetPasswordForm
-from .models import User
+from application.models import User
 from application.Blueprints.UserResetPassword.email import send_password_reset_email
 from application.Blueprints.UserResetPassword.twilio_verify import request_verification_token, check_verification_token
 from werkzeug.security import generate_password_hash, check_password_hash

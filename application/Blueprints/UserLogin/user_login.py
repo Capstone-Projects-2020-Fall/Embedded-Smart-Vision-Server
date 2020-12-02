@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User
+from application.models import User
 from application import db
 from flask_login import login_user
 from application.Blueprints.User2FA.twilio_verify import request_verification_token
@@ -25,6 +25,9 @@ def show_user_login_post():
 
     if two_factor_enabled:
         return redirect(url_for('user2fa.login_verify_2fa'))
+    
+    if not user or not check_password_hash(user.password, password):
+        return redirect(url_for('user_login.show_user_login'))
 
     login_user(user, remember=remember)
     return redirect(url_for('user_profile.show_user_profile', user = user))
