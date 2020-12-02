@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, session, Blueprint
 from flask_login import login_user, login_required, current_user
 from application.Blueprints.User2FA.form_2fa import Enable2faForm, Confirm2faForm, Disable2faForm
-from .models import User
+from application.models import User
 from application.Blueprints.User2FA.twilio_verify import request_verification_token, check_verification_token
 from application import db
 
@@ -16,6 +16,20 @@ def enable_2fa():
 @login_required
 def enable_2fa_post():
     verification_phone = request.form.get('cellphonenumber')
+    code = request.form.get('token')
+    email = request.form.get('email')
+    phone = verification_phone
+    user = User.query.filter_by(email=email).first()
+    print(user.email)
+    user.verification_phone = phone
+    user.token = code
+    user.two_factor_enabled = True
+    db.session.commit()
+    print('Worked!!!')
+    return redirect(url_for('user_profile.show_user_profile'))
+
+    '''
+    verification_phone = request.form.get('cellphonenumber')
     
     code = request.form.get('token')
     verify_code = request.form.get('verifytoken')
@@ -25,10 +39,11 @@ def enable_2fa_post():
     # session['phone'] = verification_phone
     phone = verification_phone
     
-    if code == verify_code:
+    # if code == verify_code:
         # session['code'] = code
-        code = code
+    #     code = code
     
+    # else:
     print('Cell Phone Number: {}'.format(phone))
     print('Code: {}'.format(code))
     
@@ -42,7 +57,7 @@ def enable_2fa_post():
     print(user.two_factor_enabled)
     
     return redirect(url_for('user_profile.show_user_profile'))
-
+'''
 @user2fa.route('/login_verify_2fa')
 def login_verify_2fa():
     return render_template('login_verify_2fa.html', current_page = 'login_verify_2fa')
