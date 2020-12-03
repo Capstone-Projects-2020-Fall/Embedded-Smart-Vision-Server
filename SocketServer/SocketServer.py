@@ -107,10 +107,13 @@ class SocketServer:
         # Configure and create the socket
         client_socket = -1
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(2)
-        s.bind(('0.0.0.0', 4000))
-        s.listen(5)
-        print("\n")
+        try: 
+            s.settimeout(2)
+            s.bind(('0.0.0.0', 4000))
+            s.listen(5)
+            print("\n")
+        finally:
+            print("Server not listening")
 
         # Loop around to establish connection while using timeout to allow for interruption
         while True:
