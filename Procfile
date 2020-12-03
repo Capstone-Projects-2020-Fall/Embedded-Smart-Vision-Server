@@ -1,1 +1,1 @@
-web: gunicorn: WebDriver:app
+web: gunicorn WebDriver:app
