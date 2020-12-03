@@ -1,1 +1,1 @@
-web: gunicorn WebDriver:app
+web: python3 StartServer.py
