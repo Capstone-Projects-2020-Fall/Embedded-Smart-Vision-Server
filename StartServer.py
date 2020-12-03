@@ -7,6 +7,12 @@ from WebDriver import start_webapp
 from application.SocketInterface import SocketInterface
 
 if __name__ == '__main__':
+    # initialize the database
+    from applicatioin import db, create_app
+    app, socket_io = create_app()
+    app.app_context().push()
+    db.create_all()
+    
     # Create the sockets
     web_app_conn, socket_server_conn = Pipe(duplex=True)
 
