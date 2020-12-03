@@ -108,7 +108,7 @@ class SocketServer:
         client_socket = -1
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(2)
-        s.bind((socket.gethostname(), 1234))
+        s.bind(('0.0.0.0', 4000))
         s.listen(5)
         print("\n")
 
@@ -116,7 +116,7 @@ class SocketServer:
         while True:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.settimeout(2)
-            s.bind((socket.gethostname(), 1234))
+            s.bind(('0.0.0.0', 4000))
             s.listen(5)
             print("\n")
             print("Waiting for connection....")
