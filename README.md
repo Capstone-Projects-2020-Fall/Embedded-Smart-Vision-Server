@@ -1,5 +1,5 @@
 # Embedded-Smart-Vision-Server
-The server does not need to be built by the testing team. Instead, it should be accessed at the following address http://0.0.0.0:5000/
+The server does not need to be built by the testing team. Instead, it should be accessed at the following address http://45.79.152.222:5000/
 
 ## Features
 * Website can be reached at the above address at all times
