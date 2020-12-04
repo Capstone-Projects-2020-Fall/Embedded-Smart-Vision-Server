@@ -109,19 +109,20 @@ class SocketServer:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # try: 
         s.settimeout(2)
-        port = int(os.environ.get("PORT", 5000))
-        s.bind(('0.0.0.0', port = port))
-        s.listen(5)
-        print("\n")
-        # finally:
-            # print("Server not listening")
+        try:
+            port = int(os.environ.get("PORT", 5000))
+            s.bind(('0.0.0.0', port))
+            s.listen(5)
+            print("\n")
+        finally:
+            print("Server not listening to the socket node")
 
         # Loop around to establish connection while using timeout to allow for interruption
         while True:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.settimeout(2)
             port = int(os.environ.get("PORT", 5000))
-            s.bind(('0.0.0.0', port = port))
+            s.bind(('0.0.0.0', port))
             s.listen(5)
             print("\n")
             print("Waiting for connection....")
