@@ -10,4 +10,4 @@ def start_webapp(socket_connection):
     app, socketio = create_app()
     socket_interface = SocketInterface(connection=socket_connection)
     port = int(os.environ.get("PORT", 5000))
-    socketio.run(app, host='https://embedded-smart-vision-project.herokuapp.com/', port = port)
+    socketio.run(app, host='0.0.0.0', port = port)
