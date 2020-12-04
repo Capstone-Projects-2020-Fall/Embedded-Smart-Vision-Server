@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Welcome to the enabling of 2-factor authentication page!{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<h1>You must enter a country code started with a + followed by area code followed by the cell phone number with no spaces and no special characters to activate two-factor authentication on your account!</h1>
+<div class="column is-4 is-offset-4">
+    <h3 class="title">User Enable 2-Factor Authentication Page</h3>
+    <div class="box">
+        <form method="POST" action="/enable_2fa">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="cellphonenumber" name="cellphonenumber" placeholder="Cell Phone Number" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="token" name="token" placeholder="Token" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="verifytoken" name="cellphonenumber" placeholder="Verify Token" autofocus="">
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Enable 2-Factor Authentication</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+            

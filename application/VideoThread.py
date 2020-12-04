@@ -3,9 +3,15 @@ import threading
 import time
 from datetime import datetime
 
+<<<<<<< HEAD
+from multiprocessing.connection import Connection
+=======
+from multiprocessing.connection import Pipe
+>>>>>>> UpdateUserAuthentication
+
 from multiprocessing.connection import Connection
 
-import cv2
+# import cv2
 
 from application.VideoStream.VideoFeed import VideoStream
 from application import socketio
