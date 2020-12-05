@@ -108,8 +108,8 @@ class SocketServer:
                         print("Failed to find an active connection for this stream, closing it")
                         str_thread.running = False
                 self.web_interface.setup_stream(node_name, str_thread)
-            finally:
-                print("No nodes were connected")
+        finally:
+            print("No nodes were connected")
 
     # Start a server that listens for new nodes attempting to connect
     def start_listening_server(self):
