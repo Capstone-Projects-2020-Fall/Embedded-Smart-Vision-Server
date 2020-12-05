@@ -18,11 +18,23 @@ gallery will only show tags with no accompanying video thumbnail
 
 ## Building
 To run the server you must have python3 installed on your machine as well as pip (python's tool for downloading dependencies). Download the repository as a zip file and unzip the
-file. Using pip, download all of the required dependencies from the attached 'requirements.txt' file using the following command: pip install -r requirements.txt. Then, open the
-python3 terminal with the following command: python3. Use the terminal to initialize the database using the following python lines:
-1. from application import db, create_app
-2. app, socket_io = create_app()
-3. app.app_context().push()
-4. db.create_all()
+file. Using pip, download all of the required dependencies from the attached 'requirements.txt' file using the following command: 
 
-If all dependencies are downloaded correctly and database is initialized, the server should start with the following command: python3 StartServer.py
+    pip install -r requirements.txt
+
+Then, open the python3 terminal with the following command: 
+
+    python3 
+
+Use the terminal to initialize the database using the following python lines:
+    
+```python
+from application import db, create_app
+app, socket_io = create_app()
+app.app_context().push()
+db.create_all()
+```
+
+If all dependencies are downloaded correctly and database is initialized, the server should start with the following command: 
+
+    python3 StartServer.py
