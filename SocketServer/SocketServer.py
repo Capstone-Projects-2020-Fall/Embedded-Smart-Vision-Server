@@ -148,8 +148,8 @@ class SocketServer:
                     except socket.timeout:
                         continue
                     print("\nConnection established\n\n")
-                finally:
-                    print("")
+        finally:
+            print("No socket connection was established")
 
 
 def start_socket_server(web_app_con):
