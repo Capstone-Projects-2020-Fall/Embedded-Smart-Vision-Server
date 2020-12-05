@@ -120,11 +120,8 @@ class IncomingThread(threading.Thread):
         print(lbl, "Frame count:", frame_count, "| Width,Height:", frame_width, ",", frame_height)
 
         # Open up the video writer to write the file
-<<<<<<< HEAD
         out = cv2.VideoWriter(path, cv2.VideoWriter_fourcc('a', 'v', 'c', '1'), 10, (frame_width, frame_height))
-=======
         # out = cv2.VideoWriter(path, cv2.VideoWriter_fourcc('m', 'p', '4', 'a'), 10, (frame_width, frame_height))
->>>>>>> UpdateUserAuthentication
         	# cv2.VideoWriter_fourcc('a', 'v', 'c', '1')
         # While we still have frames to receive
         while frame_count > 0:

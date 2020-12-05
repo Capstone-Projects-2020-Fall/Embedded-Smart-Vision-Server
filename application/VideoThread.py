@@ -3,11 +3,11 @@ import threading
 import time
 from datetime import datetime
 
-<<<<<<< HEAD
+
 from multiprocessing.connection import Connection
-=======
+
 from multiprocessing.connection import Pipe
->>>>>>> UpdateUserAuthentication
+
 
 from multiprocessing.connection import Connection
 
