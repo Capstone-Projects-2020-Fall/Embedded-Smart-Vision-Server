@@ -54,53 +54,62 @@ class SocketServer:
             )
         )
         # encode the name of the server to send to the client
-        connection.send(
-            bytes(
-                self.central_server_name, "utf-8"
+        try: 
+            connection.send(
+                bytes(
+                    self.central_server_name, "utf-8"
+                )
             )
-        )
+        finally: 
+            print("Connection not established with the client")
         # Receive and decode the name of the client
-        node_name = connection.recv(
-            struct.unpack(
-                'i',
-                connection.recv(4)
-            )[0]).decode("utf-8")
-        print(node_name, " Has connected!")
+        try: 
+            node_name = connection.recv(
+                struct.unpack(
+                    'i',
+                    connection.recv(4)
+                )[0]).decode("utf-8")
+            print(node_name, " Has connected!")
+        finally:
+            print("No nodes were connected")
 
         # Read the requested connection mode
-        conn_mode = struct.unpack('i', connection.recv(4))[0]
+        try: 
+            conn_mode = struct.unpack('i', connection.recv(4))[0]
 
-        if conn_mode == 0:
+            if conn_mode == 0:
             # Create the new node_connection object
-            node_connection = NodeConnection(self.inc_messages)
+                node_connection = NodeConnection(self.inc_messages)
             # set the name
-            node_connection.name = node_name
+                node_connection.name = node_name
             # This means this connection is not attempting to be a stream connection
             # set the node connections socket
-            node_connection.connection = connection
+                node_connection.connection = connection
             # Start the listening threads
-            node_connection.start_communication_threads()
+                node_connection.start_communication_threads()
 
             # Set the node connection to active, This should be the last thing to be done
-            with self.nc_dict_lock:
-                self.node_list[node_connection.name] = node_connection
-            node_connection.status = NodeStatus.CLIENT_NODE
-            node_info = NodeInformation(node_name=node_name)
-            self.web_interface.add_new_node(node_info)
+                with self.nc_dict_lock:
+                    self.node_list[node_connection.name] = node_connection
+                node_connection.status = NodeStatus.CLIENT_NODE
+                node_info = NodeInformation(node_name=node_name)
+                self.web_interface.add_new_node(node_info)
 
-        elif conn_mode == 1:
+            elif conn_mode == 1:
             # This is a stream connection so configure it as such
-            str_thread = StreamThread(node_name, connection)
-            str_thread.start()
+                str_thread = StreamThread(node_name, connection)
+                str_thread.start()
 
-            with self.nc_dict_lock:
-                if node_name in self.node_list:
+                with self.nc_dict_lock:
+                    if node_name in self.node_list:
                     # If the node exists in our node list add it to that stream node
-                    self.node_list[node_name].set_stream_node(str_thread)
-                else:
-                    print("Failed to find an active connection for this stream, closing it")
-                    str_thread.running = False
-            self.web_interface.setup_stream(node_name, str_thread)
+                        self.node_list[node_name].set_stream_node(str_thread)
+                    else:
+                        print("Failed to find an active connection for this stream, closing it")
+                        str_thread.running = False
+                self.web_interface.setup_stream(node_name, str_thread)
+            finally:
+                print("No nodes were connected")
 
     # Start a server that listens for new nodes attempting to connect
     def start_listening_server(self):
@@ -118,34 +127,40 @@ class SocketServer:
             print("Server not listening to the socket node")
 
         # Loop around to establish connection while using timeout to allow for interruption
-        while True:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.settimeout(2)
-            port = int(os.environ.get("PORT", 5000))
-            s.bind(('0.0.0.0', port))
-            s.listen(5)
-            print("\n")
-            print("Waiting for connection....")
-            # Loop around to establish connection while using timeout to allow for interruption
+        try: 
             while True:
-                try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s.settimeout(2)
+                port = int(os.environ.get("PORT", 5000))
+                s.bind(('0.0.0.0', port))
+                s.listen(5)
+                print("\n")
+                print("Waiting for connection....")
+            # Loop around to establish connection while using timeout to allow for interruption
+                while True:
+                    try:
                     # Try to accept new connections
-                    client_socket, address = s.accept()
+                        client_socket, address = s.accept()
 
                     # Start a new handshake thread so we can set that up while we wait for another connection
-                    start_new_thread(self.hand_shake, (client_socket,))
+                        start_new_thread(self.hand_shake, (client_socket,))
 
-                except socket.timeout:
-                    continue
-                print("\nConnection established\n\n")
+                    except socket.timeout:
+                        continue
+                    print("\nConnection established\n\n")
+                finally:
+                    print("")
 
 
 def start_socket_server(web_app_con):
     # We are now in a new process with a handle to the socket server
-    print("Starting debugger server thread")
+    try:
+        print("Starting debugger server thread")
 
-    print("Starting socket server")
-    socket_server = SocketServer(web_app_con)
-    debugger = DebuggerHost(socket_server)
-    debugger.start()
-    socket_server.start_listening_server()
+        print("Starting socket server")
+        socket_server = SocketServer(web_app_con)
+        debugger = DebuggerHost(socket_server)
+        debugger.start()
+        socket_server.start_listening_server()
+    finally:
+        print("Unable to start the socket server!")
