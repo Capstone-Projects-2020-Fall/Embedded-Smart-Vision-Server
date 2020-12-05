@@ -47,37 +47,37 @@ class SocketServer:
     # Returns a NodeConnection containing all the information
     def hand_shake(self, connection: socket.socket):
         # Send the packed up length of the servers name to the client
-        try:
+        if connection != None:
             connection.send(
                 struct.pack(
                     'i',
                     len(self.central_server_name)
                 )
             )
-        finally:
+        else:
             print("Handshake was not established with the clinet")
         # encode the name of the server to send to the client
-        try: 
+        if connection != None: 
             connection.send(
                 bytes(
                     self.central_server_name, "utf-8"
                 )
             )
-        finally: 
+        else: 
             print("Connection not established with the client")
         # Receive and decode the name of the client
-        try: 
+        if connection != None: 
             node_name = connection.recv(
                 struct.unpack(
                     'i',
                     connection.recv(4)
                 )[0]).decode("utf-8")
             print(node_name, " Has connected!")
-        finally:
+        else:
             print("No nodes were connected")
 
         # Read the requested connection mode
-        try: 
+        if connection != None: 
             conn_mode = struct.unpack('i', connection.recv(4))[0]
 
             if conn_mode == 0:
@@ -111,7 +111,7 @@ class SocketServer:
                         print("Failed to find an active connection for this stream, closing it")
                         str_thread.running = False
                 self.web_interface.setup_stream(node_name, str_thread)
-        finally:
+        else:
             print("No nodes were connected")
 
     # Start a server that listens for new nodes attempting to connect
@@ -121,12 +121,12 @@ class SocketServer:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # try: 
         s.settimeout(2)
-        try:
+        if s != None:
             port = int(os.environ.get("PORT", 5000))
             s.bind(('0.0.0.0', port))
             s.listen(5)
             print("\n")
-        finally:
+        else:
             print("Server not listening to the socket node")
 
         # Loop around to establish connection while using timeout to allow for interruption
