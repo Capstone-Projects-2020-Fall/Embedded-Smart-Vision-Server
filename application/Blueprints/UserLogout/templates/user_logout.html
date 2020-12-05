@@ -5,6 +5,16 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="title">User Logout Page<</h1>
-<p>The user must close out of the current browser session after successfullly logging out of their account.</p>
-<p>The user then may start another browser session in order to log in to their account to continue working on their account.</p>
+<div class="column is-4 is-offset-4">
+	<h3 class="title">User Logout Page</h3>
+	<div class="box">
+		<form method="POST" action="/disable_2fa">
+			<div class="field">
+				<div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Disable 2-Factor Authentication</button>
+		</form>
+	</div>
+</div>
