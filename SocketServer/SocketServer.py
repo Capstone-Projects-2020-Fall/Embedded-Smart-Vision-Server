@@ -114,8 +114,6 @@ class SocketServer:
             s.bind(('0.0.0.0', port))
             s.listen(5)
             print("\n")
-        except socket.timeout:
-            continue
         finally:
             print("Server not listening to the socket node")
 
