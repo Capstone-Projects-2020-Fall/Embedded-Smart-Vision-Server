@@ -10,4 +10,4 @@ def start_webapp():
     app, socketio = create_app()
     # socket_interface = SocketInterface(connection=socket_connection)
     port = int(os.environ.get("PORT", 5000))
-    app.run(app, host='0.0.0.0', port = port)
+    app.run(host='0.0.0.0', port = port)
