@@ -22,6 +22,7 @@ def show_user_login_post():
 
     user = User.query.filter_by(email=email).first()
     user.is_authenticated = True
+    db.session.commit()
     two_factor_enabled = user.two_factor_enabled
 
     if two_factor_enabled:
