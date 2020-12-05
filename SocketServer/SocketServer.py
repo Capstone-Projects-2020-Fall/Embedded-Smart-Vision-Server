@@ -47,12 +47,15 @@ class SocketServer:
     # Returns a NodeConnection containing all the information
     def hand_shake(self, connection: socket.socket):
         # Send the packed up length of the servers name to the client
-        connection.send(
-            struct.pack(
-                'i',
-                len(self.central_server_name)
+        try:
+            connection.send(
+                struct.pack(
+                    'i',
+                    len(self.central_server_name)
+                )
             )
-        )
+        finally:
+            print("Handshake was not established with the clinet")
         # encode the name of the server to send to the client
         try: 
             connection.send(
