@@ -14,15 +14,15 @@ if __name__ == '__main__':
     db.create_all()
     
     # Create the sockets
-    web_app_conn, socket_server_conn = Pipe(duplex=True)
+    # web_app_conn, socket_server_conn = Pipe(duplex=True)
 
     # Create the socket server process
 
-    socket_server_proc = Process(target=start_socket_server,
-                                 name="Socket_Server",
-                                 args=(web_app_conn, ))
+    # socket_server_proc = Process(target=start_socket_server,
+                                 # name="Socket_Server",
+                                 # args=(web_app_conn, ))
 
-    socket_server_proc.start()
+    # socket_server_proc.start()
 
-    start_webapp(socket_server_conn)
+    start_webapp()
 
