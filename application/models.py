@@ -15,7 +15,7 @@ class Tag(db.Model):
 	classification = db.Column(db.String(100), nullable=False)
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
     username = db.Column(db.String(100), unique=True)
@@ -25,5 +25,3 @@ class User(db.Model):
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
     two_factor_enabled = db.Column(db.Boolean, default=False, nullable=False)
-    is_authenticated = db.Column(db.Boolean, default=False, nullable=False)
-    is_active = db.Column(db.Boolean, default=False, nullable=False)
