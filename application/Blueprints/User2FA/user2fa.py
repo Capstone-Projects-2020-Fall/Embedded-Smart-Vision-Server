@@ -24,7 +24,7 @@ def enable_2fa_post():
     user.two_factor_enabled = True
     db.session.commit()
     print('Worked!!!')
-    return redirect(url_for('user_profile.show_user_profile'))
+    return redirect(url_for('user_login.show_user_login'))
 
 @user2fa.route('/login_verify_2fa')
 def login_verify_2fa():
@@ -45,7 +45,7 @@ def login_verify_2fa_post():
         
     if login_code != code:
         return redirect(url_for('user2fa.login_verify_2fa'))
-    else: 
+    else:   
         return redirect(url_for('user_profile.show_user_profile'))
 
 @user2fa.route('/disable_2fa')
@@ -61,4 +61,4 @@ def disable_2fa_post():
     user.two_factor_enabled = False
     db.session.commit()
     print('verification_phone: {}, token: {}, two_factor_enabled: {}'.format(user.verification_phone, user.token, user.two_factor_enabled))
-    return redirect(url_for('user_profile.show_user_profile'))
+    return redirect(url_for('user_login.show_user_login'))

@@ -67,7 +67,7 @@ class IncomingThread(threading.Thread):
         print(lbl, "Test command:", text)
 
     def handle_video_send(self):
-        path, video_title = self.generate_video_path()
+        path = self.generate_video_path()
         received_tags = []
 
         # Create local copy of bsa
@@ -120,7 +120,6 @@ class IncomingThread(threading.Thread):
         print(lbl, "Frame count:", frame_count, "| Width,Height:", frame_width, ",", frame_height)
 
         # Open up the video writer to write the file
-        out = cv2.VideoWriter(path, cv2.VideoWriter_fourcc('a', 'v', 'c', '1'), 10, (frame_width, frame_height))
         # out = cv2.VideoWriter(path, cv2.VideoWriter_fourcc('m', 'p', '4', 'a'), 10, (frame_width, frame_height))
         	# cv2.VideoWriter_fourcc('a', 'v', 'c', '1')
         # While we still have frames to receive
@@ -148,7 +147,7 @@ class IncomingThread(threading.Thread):
 
         # Release the video writer
         out.release()
-        WebAppInterface.getInstance().add_video_data(video_title, received_tags)
+        WebAppInterface.getInstance().add_video_data(path, received_tags)
 
     def set_running(self, option: bool):
         self.running = option
@@ -181,8 +180,8 @@ class IncomingThread(threading.Thread):
         video_title = "{node_name}-{date_time}-Video-{cnt}.mp4".\
             format(node_name=node_name, date_time=date_time, cnt=cnt)
 
-        video_path = os.path.join(os.getcwd(), 'application', 'static', 'Videos', video_title)
-        return video_path, video_title
+        video_path = os.path.join(os.getcwd(), 'Videos', video_title)
+        return video_path
 
     def break_down(self):
         print("Breaking down thread: " + self.name)
