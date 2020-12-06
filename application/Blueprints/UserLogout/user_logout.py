@@ -21,5 +21,5 @@ def show_user_logout_post():
 	user = User.query.filter_by(email=email).first()
 	user.is_authenticated = False
 	db.session.commit()
-	logout_user()
+	# logout_user()
 	return redirect(url_for('user_login.show_user_login'))
