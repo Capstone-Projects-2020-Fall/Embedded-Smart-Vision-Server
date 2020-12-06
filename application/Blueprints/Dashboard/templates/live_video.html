@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Live Video Feed{% endblock %}
+
+{% block header %}
+  <h1>{{ node }}</h1>
+{% endblock %}
+
+{% block content %}
+    <img src="" id="live-feed">
+
+    <script>
+        const socket = io();
+        const target = 'frame-{{ node }}';
+
+        setInterval(() => {
+            // Emit pulse to keep the stream alive
+            socket.emit('frame', '{{ node }}');
+
+        }, 1000);
+
+        socket.on(target, (image) => {
+            const bytes = new Uint8Array(image);
+            const blob = new Blob([bytes.buffer]);
+
+            const img = document.getElementById('live-feed');
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(blob);
+        });
+
+    </script>
+{% endblock %}
