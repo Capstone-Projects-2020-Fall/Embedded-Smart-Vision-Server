@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for, render_template
+from flask import Blueprint, redirect, url_for, render_template, request
 from flask_login import login_user, logout_user, login_required
 from application import db
 from application.models import User
@@ -21,5 +21,4 @@ def show_user_logout_post():
 	user = User.query.filter_by(email=email).first()
 	user.is_authenticated = False
 	db.session.commit()
-	# logout_user()
 	return redirect(url_for('user_login.show_user_login'))
